@@ -1,0 +1,46 @@
+{
+  "name": "lay-editor",
+  "version": "0.0.1",
+  "description": "基于 draftjs 和 Ant Design 的富文本编辑器",
+  "homepage": "https://github.com/LayGit/lay-editor",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "publish": "npm run build",
+    "dev": "umi dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LayGit/lay-editor"
+  },
+  "keywords": [
+    "react-editor",
+    "lay-editor",
+    "draftjs",
+    "antd",
+    "wysiwyg",
+    "editor"
+  ],
+  "author": "Lay",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LayGit/lay-editor/issues"
+  },
+  "peerDependencies": {
+    "antd": "^3.0.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
+    "babel-plugin-import": "^1.11.0",
+    "umi-plugin-react": "^1.2.3"
+  },
+  "dependencies": {
+    "draft-js": "^0.10.5",
+    "draftjs-utils": "^0.9.4",
+    "prop-types": "^15.6.2"
+  }
+}
