@@ -31,7 +31,7 @@
     "port": 9090,
     "entry": {
       "lay-editor": [
-        "./assets/index.less",
+        "./assets/editor.less",
         "./src/index.js"
       ]
     }
