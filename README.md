@@ -10,6 +10,10 @@
 npm install --save lay-editor
 ```
 
+## Example
+
+[https://laygit.github.io/lay-editor/](https://laygit.github.io/lay-editor/)
+
 ## Usage
 
 ```jsx
