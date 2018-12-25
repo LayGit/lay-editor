@@ -15,12 +15,12 @@ npm install --save lay-editor
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'lay-editor'
+import { LayEditor } from 'lay-editor'
 
 class Example extends Component {
   render () {
     return (
-      <MyComponent />
+      <LayEditor />
     )
   }
 }
