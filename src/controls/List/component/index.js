@@ -46,7 +46,7 @@ const LayoutComponent = (props) => {
   }
 
   return (
-    <div className="lay-editor-list-wrapper">
+    <div className="lay-editor-tool-wrapper">
       {
         options.map((style, index) => (
           <ToolButton

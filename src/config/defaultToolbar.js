@@ -76,6 +76,10 @@ export default {
     title: '插入图片',
     altEnabled: false,
     alignmentEnabled: true,
+    defaultSize: {
+      width: 'auto',
+      height: 'auto'
+    },
     upload: {
       type: 'base64' || 'server' || 'qiniu' || 'aliyun' || 'upyun',
       maxSize: 2048 * 1024 || '2m' || '2048k',

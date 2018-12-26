@@ -160,10 +160,6 @@ export default class Upload extends Component {
       'lay-editor-upload-drag-hover': this.state.dragState === 'dragover'
     })
 
-    const {
-      accept
-    } = this.props
-
     const uploadProps = {
       onStart: this.onStart,
       onError: this.onError,
@@ -173,7 +169,10 @@ export default class Upload extends Component {
       beforeUpload: this.beforeUpload
     }
 
-    const mimeSupport = accept ? accept.replace(/image\//g, '') : '所有'
+    const { accept, maxSize } = this.props
+
+    let acceptFmt = accept ? accept.replace(/image\//g, '') : '所有格式'
+    let maxSizeLimit = maxSize > 0 ? `大小不超过 ${maxSize / 1024 / 1024}m` : '不限大小'
 
     return (
       <span className="lay-editor-upload">
@@ -192,7 +191,7 @@ export default class Upload extends Component {
                 <Icon type="icon-inbox" />
               </p>
               <p className="lay-editor-upload-text">点击或拖放文件到此处上传</p>
-              <p className="lay-editor-upload-hint">{`支持 ${mimeSupport} 文件格式`}</p>
+              <p className="lay-editor-upload-hint">{`支持 ${acceptFmt}，${maxSizeLimit}`}</p>
             </div>
           </RcUpload>
         </div>

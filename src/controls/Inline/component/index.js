@@ -6,7 +6,7 @@ import Icon from '../../../components/Icon'
 const LayoutComponent = (props) => {
   const { config, currentState, onChange } = props
   return (
-    <div className="lay-editor-inline-wrapper">
+    <div className="lay-editor-tool-wrapper">
       {
         config.options.map((style, index) => (
           <ToolButton

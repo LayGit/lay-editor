@@ -56,14 +56,14 @@
 
   &-toolbar-wrapper {
     background: #f5f5f5;
-    padding: 10px 10px;
+    padding: 5px 10px;
 
     &:after {
       .clearfix
     }
   }
 
-  &-inline-wrapper, &-block-wrapper, &-list-wrapper, &-align-wrapper, &-fontsize-wrapper, &-remove-wrapper, &-history-wrapper {
+  &-tool-wrapper {
     display: inline;
     margin: 5px 0;
     border-left: 1px solid #e2e2e2;
@@ -93,7 +93,7 @@
   }
 
   &-tool-btn {
-    display: inline;
+    display: inline-block;
     padding: 5px 10px;
     cursor: pointer;
 
@@ -485,6 +485,8 @@
 
     &-wrapper {
       position: relative;
+      width: 100%;
+      overflow: auto;
     }
   }
 

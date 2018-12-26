@@ -11,7 +11,7 @@ const LayoutComponent = (props) => {
   } = props
 
   return (
-    <div className="lay-editor-block-wrapper">
+    <div className="lay-editor-tool-wrapper">
       {
         config.options.map((block, index) => (
           <ToolButton

@@ -10,7 +10,7 @@ const LayoutComponent = (props) => {
     onChange
   } = props
   return (
-    <div className="lay-editor-align-wrapper">
+    <div className="lay-editor-tool-wrapper">
       {
         config.options.map((alignment, index) => (
           <ToolButton

@@ -59,7 +59,7 @@ export default class LayoutComponent extends Component {
     currentFontSize = currentFontSize || (options && options.indexOf(defaultFontSize) >= 0 && defaultFontSize)
     const menu = this.getMenu(options, currentFontSize)
     return (
-      <div className="lay-editor-fontsize-wrapper">
+      <div className="lay-editor-tool-wrapper">
         <Dropdown
           trigger={['click']}
           overlay={menu}

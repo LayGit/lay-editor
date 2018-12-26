@@ -20,7 +20,7 @@ const LayoutComponent = (props) => {
   }
 
   return (
-    <div className="lay-editor-history-wrapper">
+    <div className="lay-editor-tool-wrapper">
       {
         config.options.map((howdo, index) => (
           <ToolButton

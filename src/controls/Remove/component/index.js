@@ -6,7 +6,7 @@ import Icon from '../../../components/Icon'
 const LayoutComponent = ({ config, onChange }) => {
   const { icon, title } = config
   return (
-    <div className="lay-editor-remove-wrapper">
+    <div className="lay-editor-tool-wrapper">
       <ToolButton
         onClick={onChange}
         title={title}>

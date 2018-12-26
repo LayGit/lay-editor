@@ -11,8 +11,20 @@ import TabContent from 'rc-tabs/lib/TabContent'
 
 class UploadTab extends Component {
 
-  getMaxSize = () => {
-    let maxSize = this.props.config.maxSize
+  getMaxSize() {
+    console.log(this.props)
+    let maxSize = this.props.config.upload.maxSize
+    if (!/^\d+(\.\d+)?[m|k]?$/.test(maxSize)) {
+      return 0
+    }
+
+    if (isNaN(maxSize)) {
+      // 处理 m 和 k
+      const unit = maxSize[maxSize.length - 1]
+      const maxSizeNum = Number(maxSize.substr(0, maxSize.length - 1))
+      maxSize = unit == 'm' ? maxSizeNum * 1024 * 1024 : maxSizeNum * 1024
+    }
+
     // 获取文件大小限制
     return maxSize
   }
@@ -24,10 +36,6 @@ class UploadTab extends Component {
       const reader = new FileReader()
       let imageUrl64 = reader.readAsDataURL(file)
       reader.onload = () => {
-        if (reader.result.length > this.getMaxSize()) {
-          // 超过大小
-          console.log('超过文件大小限制')
-        }
         this.props.onChange(reader.result)
       }
       return false
@@ -58,17 +66,44 @@ class UploadTab extends Component {
   }
 
   getUploadProps = ({ type }) => {
+    let uploadProps
     switch (type) {
       case 'server':
-        return this.getServerUploadProps()
+        uploadProps = this.getServerUploadProps()
+        break
       case 'qiniu':
-        return this.getQiniuUploadProps()
+        uploadProps = this.getQiniuUploadProps()
+        break
       case 'aliyun':
-        return this.getAliyunUploadProps()
+        uploadProps = this.getAliyunUploadProps()
+        break
       case 'upyun':
-        return this.getUpyunUploadProps()
+        uploadProps = this.getUpyunUploadProps()
+        break
       default:
-        return this.getBase64UploadProps()
+        uploadProps = this.getBase64UploadProps()
+    }
+
+    const { beforeUpload, ...restProps } = uploadProps
+
+    // hook beforeUpload
+    const maxSize = this.getMaxSize()
+    const hookBeforeUpload = (file) => {
+      if (maxSize > 0 && file.size > maxSize) {
+        return false
+      }
+
+      if (beforeUpload) {
+        return beforeUpload(file)
+      }
+
+      return true
+    }
+
+    return {
+      beforeUpload: hookBeforeUpload,
+      maxSize,
+      ...restProps
     }
   }
 
@@ -142,12 +177,16 @@ const { state, updateState, altEnabled } = props
 }
 
 export default class LayoutComponent extends Component {
-  state = {
-    tabActiveKey: "local",
-    src: '',
-    alt: '',
-    width: 'auto',
-    height: 'auto'
+  constructor(props) {
+    super(props)
+    const { defaultSize = {} } = props.config
+    this.state = {
+      tabActiveKey: "local",
+      src: '',
+      alt: '',
+      width: defaultSize.width || 'auto',
+      height: defaultSize.height || 'auto'
+    }
   }
 
   onTabChange = (key) => {
@@ -201,7 +240,7 @@ export default class LayoutComponent extends Component {
     )
 
     return (
-      <div className="lay-editor-inline-wrapper">
+      <div className="lay-editor-tool-wrapper">
         <ToolButton title={title} onClick={showDialog}>
           <Icon type={icon} />
         </ToolButton>
