@@ -5,6 +5,7 @@ export default {
     "fontSize",
     "list",
     "textAlign",
+    "image",
     "remove",
     "history",
   ],
@@ -42,7 +43,7 @@ export default {
   },
   fontSize: {
     options: [12, 14, 16, 18, 24, 30, 36, 48],
-    title: '文字大小',
+    title: '字号',
     icon: 'icon-fontsize'
   },
   list: {
@@ -54,8 +55,8 @@ export default {
     ],
     unordered: { icon: 'icon-wuxuliebiao', title: '无序列表' },
     ordered: { icon: 'icon-youxuliebiao', title: '有序列表' },
-    indent: { icon: 'icon-yousuojin', title: '右缩进' },
-    outdent: { icon: 'icon-zuosuojin', title: '左缩进' },
+    indent: { icon: 'icon-yousuojin', title: '增加缩进' },
+    outdent: { icon: 'icon-zuosuojin', title: '减少缩进' },
   },
   textAlign: {
     options: [
@@ -68,6 +69,11 @@ export default {
     center: { icon: 'icon-juzhongduiqi', title: '居中对齐' },
     right: { icon: 'icon-juyouduiqi', title: '右对齐' },
     justify: { icon: 'icon-liangduanduiqi', title: '两端对齐' }
+  },
+  image: {
+    icon: 'icon-shangchuantupian',
+    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png',
+    title: '插入图片',
   },
   remove: {
     icon: 'icon-xiangpica',

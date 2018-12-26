@@ -31,7 +31,7 @@
     "port": 9090,
     "entry": {
       "lay-editor": [
-        "./assets/editor.less",
+        "./assets/index.less",
         "./src/index.js"
       ]
     }
@@ -63,9 +63,12 @@
     "draftjs-utils": "^0.9.4",
     "html-to-draftjs": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
+    "rc-dialog": "^7.3.0",
     "rc-dropdown": "^2.3.0",
     "rc-menu": "^7.4.20",
-    "rc-tooltip": "^3.7.3"
+    "rc-tabs": "^9.5.7",
+    "rc-tooltip": "^3.7.3",
+    "rc-upload": "^2.6.1"
   },
   "types": "index.d.ts"
 }

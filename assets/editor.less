@@ -1,5 +1,3 @@
-@import "draft.less";
-
 @editor-prefix-cls: lay-editor;
 
 .clearfix {
@@ -143,6 +141,74 @@
     & > div {
       display: inline-block;
     }
+  }
+
+  &-upload {
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    color: rgba(0,0,0,0.65);
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    outline: 0;
+
+    &-drag {
+      border: 1px dashed #d9d9d9;
+      -webkit-transition: border-color .3s;
+      transition: border-color .3s;
+      cursor: pointer;
+      border-radius: 4px;
+      text-align: center;
+      position: relative;
+      background: #fafafa;
+      padding: 0;
+      margin: 0;
+
+      &:hover {
+        border-color: #40a9ff;
+      }
+
+      &-hover {
+        border: 2px dashed #40a9ff;
+      }
+
+      &-container {
+        display: table-cell;
+        vertical-align: middle;
+      }
+
+      &-icon {
+        margin-bottom: 20px;
+
+        & .lay-editor-icon {
+          font-size: 48px;
+          color: #40a9ff;
+        }
+      }
+    }
+
+    &-text {
+      font-size: 16px;
+      margin: 0 0 4px;
+      color: rgba(0,0,0,0.85);
+    }
+
+    &-hint {
+      font-size: 14px;
+      color: rgba(0,0,0,0.45);
+    }
+
+    &-btn {
+      display: table;
+      height: 100%;
+      width: 100%;
+      outline: none;
+      padding: 16px 0;
+    }
+
   }
 }
 

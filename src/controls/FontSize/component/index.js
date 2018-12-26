@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames'
 import ToolButton from '../../../components/ToolButton'
 import Icon from '../../../components/Icon'
 import Dropdown from 'rc-dropdown'
 import Menu, { Item as MenuItem, Divider } from 'rc-menu'
-
-import 'rc-dropdown/assets/index.css'
 
 export default class LayoutComponent extends Component {
   static propTypes = {
@@ -67,7 +64,7 @@ export default class LayoutComponent extends Component {
           trigger={['click']}
           overlay={menu}
           animation="slide-up">
-          <ToolButton title={null}>
+          <ToolButton title={title}>
             <Icon type={icon} />
           </ToolButton>
         </Dropdown>

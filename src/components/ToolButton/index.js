@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import Tooltip from 'rc-tooltip'
-import 'rc-tooltip/assets/bootstrap.css'
 
 const ToolButton = (props) => {
   const { children, active, disabled, title, onClick, value } = props
