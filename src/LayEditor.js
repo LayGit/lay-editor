@@ -10,9 +10,10 @@ import {
 import {
   changeDepth,
   handleNewLine,
-  getSelectedBlocksType,
+  blockRenderMap,
+  getCustomStyleMap,
   extractInlineStyle,
-  getCustomStyleMap
+  getSelectedBlocksType,
 } from 'draftjs-utils'
 import classNames from 'classnames'
 import Icon from './components/Icon'
@@ -25,6 +26,7 @@ import FocusHandler from './events/focus'
 import KeyDownHandler from "./events/keydown"
 import SuggestionHandler from './events/suggestions'
 import ModalHandler from './events/modals'
+import getBlockRenderFunc from './renderer'
 
 class LayEditor extends Component {
   static propTypes = {
@@ -63,15 +65,15 @@ class LayEditor extends Component {
     this.wrapperId = `lay-editor-${wrapperId}`
     this.modalHandler = new ModalHandler()
     this.focusHandler = new FocusHandler()
-    // this.blockRendererFn = getBlockRenderFunc(
-    //   {
-    //     isReadOnly: this.isReadOnly,
-    //     isImageAlignmentEnabled: this.isImageAlignmentEnabled,
-    //     getEditorState: this.getEditorState,
-    //     onChange: this.onChange
-    //   },
-    //   props.customBlockRenderFunc
-    // )
+    this.blockRendererFn = getBlockRenderFunc(
+      {
+        isReadOnly: this.isReadOnly,
+        isImageAlignmentEnabled: this.isImageAlignmentEnabled,
+        getEditorState: this.getEditorState,
+        onChange: this.onChange
+      },
+      props.customBlockRenderFunc
+    )
     this.customStyleMap = getCustomStyleMap()
   }
 
@@ -389,11 +391,12 @@ class LayEditor extends Component {
             onDownArrow={this.onUpDownArrow}
             editorState={editorState}
             onChange={this.onChange}
-            handleReturn={this.handleReturn}
-            handlePastedText={this.handlePastedText}
             blockStyleFn={this.blockStyleFn}
             customStyleMap={this.getCustomStyleMap()}
+            handleReturn={this.handleReturn}
+            handlePastedText={this.handlePastedText}
             blockRendererFn={this.blockRendererFn}
+            blockRenderMap={blockRenderMap}
             placeholder={placeholder} />
         </div>
       </div>

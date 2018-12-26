@@ -72,8 +72,27 @@ export default {
   },
   image: {
     icon: 'icon-shangchuantupian',
-    inputAccept: 'image/gif,image/jpeg,image/jpg,image/png',
+    accept: 'image/gif,image/jpeg,image/jpg,image/png',
     title: '插入图片',
+    altEnabled: false,
+    alignmentEnabled: true,
+    upload: {
+      type: 'base64' || 'server' || 'qiniu' || 'aliyun' || 'upyun',
+      maxSize: 2048 * 1024 || '2m' || '2048k',
+      server: {
+        url: '',
+        data: ''
+      },
+      qiniu: {
+
+      },
+      aliyun : {
+
+      },
+      upyun: {
+
+      }
+    }
   },
   remove: {
     icon: 'icon-xiangpica',

@@ -63,6 +63,7 @@
     "draftjs-utils": "^0.9.4",
     "html-to-draftjs": "^1.4.0",
     "immutable": "^4.0.0-rc.12",
+    "lodash": "^4.17.11",
     "rc-dialog": "^7.3.0",
     "rc-dropdown": "^2.3.0",
     "rc-menu": "^7.4.20",

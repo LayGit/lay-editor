@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import { LayEditor } from '../src/index'
+import { LayEditor, valueToHtml } from '../src/index'
 
 class Test extends Component {
   state = {

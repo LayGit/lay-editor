@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import LayoutComponent from './component'
+import { AtomicBlockUtils } from 'draft-js'
 
 export default class Image extends Component {
   static propTypes: Object = {
@@ -21,8 +22,17 @@ export default class Image extends Component {
     this.setState({ dialogVisible: false })
   }
 
-  addImage = () => {
+  addImage = (src, height, width, alt) => {
+    const { editorState, onChange, config } = this.props
+    const entityData = { src, height, width }
+    if (config.altEnabled) {
+      entityData.alt = alt
+    }
 
+    const entityKey = editorState.getCurrentContent().createEntity('IMAGE', 'MUTABLE', entityData).getLastCreatedEntityKey()
+    const newEditorState = AtomicBlockUtils.insertAtomicBlock(editorState, entityKey, ' ')
+    onChange(newEditorState)
+    this.hideDialog()
   }
 
   render () {
