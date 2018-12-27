@@ -1,14 +1,14 @@
-webpackJsonp([0],{
+webpackJsonp([1],{
 
-/***/ 530:
+/***/ 192:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(531);
+module.exports = __webpack_require__(193);
 
 
 /***/ }),
 
-/***/ 531:
+/***/ 193:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -44,75 +44,53 @@ var Test = function (_Component) {
     }
 
     return _ret = (_temp = (_this = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_possibleConstructorReturn___default()(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
-      // EditorState
-      value: undefined,
-      html: '',
-      content: ''
-    }, _this.onHtmlToValue = function () {
-      var html = '<p>html value</p>';
-      _this.setState({
-        value: Object(__WEBPACK_IMPORTED_MODULE_5__src_index__["c" /* htmlToValue */])(html)
-      });
-    }, _this.onContentToValue = function () {
-      var content = '{"blocks":[{"key":"bk33u","text":"raw content","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}';
-      _this.setState({
-        value: Object(__WEBPACK_IMPORTED_MODULE_5__src_index__["b" /* contentToValue */])(JSON.parse(content))
-      });
+      value: undefined
     }, _this.onChange = function (value) {
       _this.setState({ value: value });
     }, _temp), __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_possibleConstructorReturn___default()(_this, _ret);
   }
 
   Test.prototype.render = function render() {
-    var _state = this.state,
-        value = _state.value,
-        html = _state.html,
-        content = _state.content;
-
+    var toolbar = {
+      image: {
+        // default is base64
+        upto: 'server',
+        // input accept attribute
+        accept: 'image/gif,image/jpeg,image/jpg,image/png',
+        // max file size, numeric bytes, m(MB), k(KB)
+        maxSize: 2048 * 1024 || '2m' || '2048k',
+        // upload config
+        server: {
+          // form action url
+          url: 'http://',
+          // request headers, available in modern browsers
+          headers: {},
+          // file param post to server
+          file: 'file',
+          // other data object to post or a function which returns a data object
+          data: {},
+          // ajax upload with cookie send
+          withCredentials: false,
+          // call after post success, return image url or throw exception to trigger error
+          resultFn: function resultFn(response) {
+            // custom response flag
+            if (response.code == 0) {
+              return response.data.url;
+            } else {
+              throw 'upload failed';
+            }
+          }
+        }
+      }
+    };
     return __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
       'div',
       { style: { padding: 20 } },
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__src_index__["a" /* LayEditor */], {
-        value: value,
+        toolbar: toolbar,
+        value: this.state.value,
         onChange: this.onChange,
-        placeholder: 'write something...' }),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        'p',
-        null,
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-          'button',
-          { onClick: this.onHtmlToValue },
-          'html to value'
-        ),
-        '\xA0\xA0',
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-          'button',
-          { onClick: this.onContentToValue },
-          'content to value'
-        )
-      ),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        'p',
-        null,
-        'convert value to html',
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement('br', null),
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement('textarea', {
-          readOnly: true,
-          style: { width: '100%' },
-          rows: 5,
-          value: Object(__WEBPACK_IMPORTED_MODULE_5__src_index__["e" /* valueToHtml */])(value) })
-      ),
-      __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
-        'p',
-        null,
-        'convert value to raw object',
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement('br', null),
-        __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement('textarea', {
-          readOnly: true,
-          style: { width: '100%' },
-          rows: 5,
-          value: JSON.stringify(Object(__WEBPACK_IMPORTED_MODULE_5__src_index__["d" /* valueToContent */])(value)) })
-      )
+        placeholder: '\u5199\u70B9\u4EC0\u4E48\u5427...' })
     );
   };
 
@@ -123,5 +101,5 @@ __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ })
 
-},[530]);
-//# sourceMappingURL=simple.js.map
+},[192]);
+//# sourceMappingURL=image-upload.js.map

@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - lay-editor@0.0.2</title>
+  <title>image-upload.js - example - lay-editor@0.0.2</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -271,28 +271,11 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
-<span class="hljs-keyword">import</span> { LayEditor, htmlToValue, contentToValue, valueToHtml, valueToContent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>
+<span class="hljs-keyword">import</span> { LayEditor, valueToHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>
 
 class Test extends Component {
   state = {
-    // EditorState
-    value: undefined,
-    html: <span class="hljs-string">''</span>,
-    content: <span class="hljs-string">''</span>
-  }
-
-  onHtmlToValue = () =&gt; {
-    const html = <span class="hljs-string">'&lt;p&gt;html value&lt;/p&gt;'</span>
-    this.setState({
-      value: htmlToValue(html)
-    })
-  }
-
-  onContentToValue = () =&gt; {
-    const content = <span class="hljs-string">'{"blocks":[{"key":"bk33u","text":"raw content","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'</span>
-    this.setState({
-      value: contentToValue(JSON.parse(content))
-    })
+    value: undefined
   }
 
   onChange = (value) =&gt; {
@@ -300,41 +283,52 @@ class Test extends Component {
   }
 
   render () {
-    const { value, html, content } = this.state
+    const toolbar = {
+      image: {
+        // default is base64
+        upto: <span class="hljs-string">'server'</span>,
+        // input accept attribute
+        accept: <span class="hljs-string">'image/gif,image/jpeg,image/jpg,image/png'</span>,
+        // max file size, numeric bytes, m(MB), k(KB)
+        maxSize: 2048 * 1024 || <span class="hljs-string">'2m'</span> || <span class="hljs-string">'2048k'</span>,
+        // upload config
+        server: {
+          // form action url
+          url: <span class="hljs-string">'http://'</span>,
+          // request headers, available in modern browsers
+          headers: {},
+          // file param post to server
+          file: <span class="hljs-string">'file'</span>,
+          // other data object to post or a function which returns a data object
+          data: {},
+          // ajax upload with cookie send
+          withCredentials: false,
+          // call after post success, return image url or throw exception to trigger error
+          resultFn: (response) =&gt; {
+            // custom response flag
+            if (response.code == 0) {
+              return response.data.url
+            } else {
+              throw <span class="hljs-string">'upload failed'</span>
+            }
+          },
+        },
+      },
+    }
     return (
       &lt;div style={{ padding: 20 }}&gt;
         &lt;LayEditor
-          value={value}
+          toolbar={toolbar}
+          value={this.state.value}
           onChange={this.onChange}
-          placeholder=<span class="hljs-string">"write something..."</span> /&gt;
-        &lt;p&gt;
-          &lt;button onClick={this.onHtmlToValue}&gt;html to value&lt;/button&gt;
-          &amp;nbsp;&amp;nbsp;
-          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onContentToValue}</span>&gt;</span>content to value<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          convert value to html<span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span>
-            <span class="hljs-attribute">readOnly</span>
-            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> '<span class="hljs-attribute">100</span>%' }}
-            <span class="hljs-attribute">rows</span>=<span class="hljs-value">{5}</span>
-            <span class="hljs-attribute">value</span>=<span class="hljs-value">{valueToHtml(value)}</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          convert value to raw object<span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span>
-            <span class="hljs-attribute">readOnly</span>
-            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> '<span class="hljs-attribute">100</span>%' }}
-            <span class="hljs-attribute">rows</span>=<span class="hljs-value">{5}</span>
-            <span class="hljs-attribute">value</span>=<span class="hljs-value">{JSON.stringify(valueToContent(value))}</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>
+          placeholder=<span class="hljs-string">"写点什么吧..."</span> /&gt;
+      &lt;/div&gt;
+    )
   }
 }
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Test</span> /&gt;</span>, document.getElementById('__react-content'))
-</span></code></pre></div>
+ReactDOM.render(&lt;Test /&gt;, document.getElementById(<span class="hljs-string">'__react-content'</span>))
+</code></pre></div>
   </div>
   <a href="http://github.com/LayGit/lay-editor">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -344,7 +338,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="../common.js?nowrap"></script>
-  <script src="simple.js?nowrap"></script>
+  <script src="image-upload.js?nowrap"></script>
 </body>
 
 </html>
