@@ -1,6 +1,6 @@
 {
   "name": "lay-editor",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "React editor based on draftjs",
   "keywords": [
     "react",
@@ -26,7 +26,7 @@
   "bugs": {
     "url": "http://github.com/LayGit/lay-editor/issues"
   },
-  "licenses": "MIT",
+  "license": "MIT",
   "config": {
     "port": 9090,
     "entry": {
