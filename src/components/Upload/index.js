@@ -11,15 +11,21 @@ export default class Upload extends Component {
     this.state = {
       fileList: props.fileList || props.defaultFileList || [],
       dragState: 'drop',
+      status: 'normal'
     }
   }
 
   componentWillUnmount() {
     this.clearProgressTimer()
+    this.clearErrorTimer()
   }
 
   clearProgressTimer() {
     clearInterval(this.progressTimer)
+  }
+
+  clearErrorTimer() {
+    clearTimeout(this.errorTimer)
   }
 
   onFileDrop = (e) => {
@@ -28,6 +34,10 @@ export default class Upload extends Component {
 
   saveUpload = (node) => {
     this.upload = node
+  }
+
+  changeStatus(status) {
+    this.setState({ status })
   }
 
   onStart = (file) => {
@@ -56,11 +66,13 @@ export default class Upload extends Component {
   onError = (error, response, file) => {
     this.clearProgressTimer()
     const fileList = this.state.fileList
-    const targetItem = getFileItem(file, fileList)
-    // removed
+    let targetItem = getFileItem(file, fileList)
+
     if (!targetItem) {
-      return
+      targetItem = {}
+      fileList.push(targetItem)
     }
+
     targetItem.error = error
     targetItem.response = response
     targetItem.status = 'error'
@@ -68,6 +80,10 @@ export default class Upload extends Component {
       file: { ...targetItem },
       fileList,
     })
+
+    this.errorTimer = setTimeout(() => {
+      this.setState({ fileList: [] })
+    }, 3000)
   }
 
   onProgress = (e, file) => {
@@ -100,17 +116,44 @@ export default class Upload extends Component {
     if (!targetItem) {
       return
     }
+
+    const { onResult, onUrl } = this.props
+    let url = response
+    if (onResult) {
+      try {
+        url = onResult(url)
+      } catch (err) {
+        this.onError(err, response, file)
+        return
+      }
+    }
+
     targetItem.status = 'done'
     targetItem.response = response
+
     this.onChange({
       file: { ...targetItem },
       fileList,
     })
+
+    if (targetItem.status === 'done') {
+      onUrl(url)
+    }
   }
 
   beforeUpload = (file, fileList) => {
+    if (fileList.length > 1) {
+      return false
+    }
+
     if (!this.props.beforeUpload) {
       return true
+    }
+
+    const { maxSize, upto } = this.props
+    if (maxSize > 0 && file.size > maxSize) {
+      this.onError('文件大小超限', null, file)
+      return false
     }
 
     const result = this.props.beforeUpload(file, fileList)
@@ -174,6 +217,9 @@ export default class Upload extends Component {
     let acceptFmt = accept ? accept.replace(/image\//g, '') : '所有格式'
     let maxSizeLimit = maxSize > 0 ? `大小不超过 ${maxSize / 1024 / 1024}m` : '不限大小'
 
+    const { fileList } = this.state
+    const file = fileList.length > 0 ? fileList[0] : {}
+
     return (
       <span className="lay-editor-upload">
         <div
@@ -192,8 +238,20 @@ export default class Upload extends Component {
               </p>
               <p className="lay-editor-upload-text">点击或拖放文件到此处上传</p>
               <p className="lay-editor-upload-hint">{`支持 ${acceptFmt}，${maxSizeLimit}`}</p>
+              {file.status === 'error' && (
+                <p className="lay-editor-upload-error">上传失败:{file.error}</p>
+              )}
             </div>
           </RcUpload>
+          {file.status === 'uploading' && (
+            <div className="lay-editor-upload-progress">
+              <div className="lay-editor-upload-progress-wrapper">
+                <div className="lay-editor-upload-progress-loading"></div>
+                <div className="lay-editor-upload-progress-percent">{file.percent ? `${Number(file.percent).toFixed(0)}%` : ''}</div>
+              </div>
+              <div className="lay-editor-upload-progress-hint">正在上传...</div>
+            </div>
+          )}
         </div>
       </span>
     )

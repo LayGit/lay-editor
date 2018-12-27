@@ -72,7 +72,6 @@ export default {
   },
   image: {
     icon: 'icon-shangchuantupian',
-    accept: 'image/gif,image/jpeg,image/jpg,image/png',
     title: '插入图片',
     altEnabled: false,
     alignmentEnabled: true,
@@ -80,22 +79,16 @@ export default {
       width: 'auto',
       height: 'auto'
     },
-    upload: {
-      type: 'base64' || 'server' || 'qiniu' || 'aliyun' || 'upyun',
-      maxSize: 2048 * 1024 || '2m' || '2048k',
-      server: {
-        url: '',
-        data: ''
-      },
-      qiniu: {
-
-      },
-      aliyun : {
-
-      },
-      upyun: {
-
-      }
+    upto: 'base64',
+    accept: '',
+    maxSize: 0,
+    server: {
+      url: '',
+      file: 'file',
+      headers: {},
+      data: {},
+      resultFn: (res) => res,
+      withCredentials: false,
     }
   },
   remove: {

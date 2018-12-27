@@ -1,12 +1,12 @@
-import { EditorState, convertToRaw, ContentState } from 'draft-js'
+import { EditorState, convertToRaw, convertFromRaw, ContentState } from 'draft-js'
 import htmlToDraft from 'html-to-draftjs'
 import draftToHtml from 'draftjs-to-html'
 
 const contentToValue = (content) => {
-  return EditorState.createWithContent(content)
+  return EditorState.createWithContent(convertFromRaw(content))
 }
 
-const valueToContent = (value) => {
+const valueToContent = (value = EditorState.createEmpty()) => {
   return convertToRaw(value.getCurrentContent())
 }
 
@@ -21,7 +21,7 @@ const htmlToContent = (html) => {
 
 const htmlToValue = (html) => {
   const contentState = htmlToContent(html)
-  return contentToValue(contentState)
+  return EditorState.createWithContent(contentState)
 }
 
 const contentToHtml = (content) => {

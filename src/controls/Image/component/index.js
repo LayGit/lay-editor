@@ -9,11 +9,10 @@ import Tabs, { TabPane } from 'rc-tabs'
 import TabBar from 'rc-tabs/lib/TabBar'
 import TabContent from 'rc-tabs/lib/TabContent'
 
-class UploadTab extends Component {
+const UploadTab = (props) => {
 
-  getMaxSize() {
-    console.log(this.props)
-    let maxSize = this.props.config.upload.maxSize
+  const getMaxSize = () => {
+    let maxSize = props.config.maxSize
     if (!/^\d+(\.\d+)?[m|k]?$/.test(maxSize)) {
       return 0
     }
@@ -30,13 +29,13 @@ class UploadTab extends Component {
   }
 
   // 获取 base64 的上传配置
-  getBase64UploadProps() {
+  const getBase64UploadProps = () => {
     const beforeUpload = (file) => {
       // 大小限制
       const reader = new FileReader()
       let imageUrl64 = reader.readAsDataURL(file)
       reader.onload = () => {
-        this.props.onChange(reader.result)
+        props.onChange(reader.result)
       }
       return false
     }
@@ -46,76 +45,87 @@ class UploadTab extends Component {
   }
 
   // 获取服务端上传配置
-  getServerUploadProps() {
-
+  const getServerUploadProps = () => {
+    const { onChange, config } = props
+    const { server: { url, data, headers, file, withCredentials, resultFn } } = config
+    return {
+      action: url,
+      name: file,
+      data,
+      headers,
+      withCredentials,
+      onResult: resultFn,
+      onUrl: onChange
+    }
   }
 
   // 获取七牛上传配置
-  getQiniuUploadProps() {
+  const getQiniuUploadProps = () => {
 
   }
 
   // 获取阿里云上传配置
-  getAliyunUploadProps() {
+  const getAliyunUploadProps = () => {
 
   }
 
   // 获取又拍云上传配置
-  getUpyunUploadProps() {
+  const getUpyunUploadProps = () => {
 
   }
 
-  getUploadProps = ({ type }) => {
+  const getUploadProps = ({ upto, accept }) => {
     let uploadProps
-    switch (type) {
+    switch (upto) {
       case 'server':
-        uploadProps = this.getServerUploadProps()
+        uploadProps = getServerUploadProps()
         break
       case 'qiniu':
-        uploadProps = this.getQiniuUploadProps()
+        uploadProps = getQiniuUploadProps()
         break
       case 'aliyun':
-        uploadProps = this.getAliyunUploadProps()
+        uploadProps = getAliyunUploadProps()
         break
       case 'upyun':
-        uploadProps = this.getUpyunUploadProps()
+        uploadProps = getUpyunUploadProps()
         break
       default:
-        uploadProps = this.getBase64UploadProps()
+        uploadProps = getBase64UploadProps()
     }
 
     const { beforeUpload, ...restProps } = uploadProps
 
-    // hook beforeUpload
-    const maxSize = this.getMaxSize()
-    const hookBeforeUpload = (file) => {
-      if (maxSize > 0 && file.size > maxSize) {
-        return false
-      }
-
-      if (beforeUpload) {
-        return beforeUpload(file)
-      }
-
-      return true
-    }
-
     return {
-      beforeUpload: hookBeforeUpload,
-      maxSize,
+      upto,
+      accept,
+      beforeUpload,
+      maxSize: getMaxSize(),
       ...restProps
     }
   }
 
-  render () {
-    const {
-      config: { accept, upload }
-    } = this.props
-
-    return (
-      <Upload accept={accept} {...this.getUploadProps(upload)} />
-    )
+  const onReset = () => {
+    props.onChange('')
   }
+
+  const {
+    config,
+    src,
+    upto,
+  } = props
+
+  return src ? (
+    <div className="lay-editor-image-preview">
+      <img src={src} />
+      <div
+        onClick={onReset}
+        className="lay-editor-image-preview-del">
+        <Icon type="icon-chexiao" /> 重新上传
+      </div>
+    </div>
+  ) : (
+    <Upload {...getUploadProps(config)} />
+  )
 }
 
 const NetworkTab = (props) => {
@@ -180,12 +190,15 @@ export default class LayoutComponent extends Component {
   constructor(props) {
     super(props)
     const { defaultSize = {} } = props.config
-    this.state = {
+    this.defaultState = {
       tabActiveKey: "local",
       src: '',
       alt: '',
       width: defaultSize.width || 'auto',
       height: defaultSize.height || 'auto'
+    }
+    this.state = {
+      ...this.defaultState
     }
   }
 
@@ -204,6 +217,8 @@ export default class LayoutComponent extends Component {
       width += 'px'
     }
     onChange(src, height, width, alt)
+    // 重置状态
+    this.setState({ ...this.defaultState })
   }
 
   render () {
@@ -249,7 +264,9 @@ export default class LayoutComponent extends Component {
           bodyStyle={{ padding: 10 }}
           visible={dialogVisible}
           onClose={hideDialog}
-          onOk={this.addImageFromState}>
+          onOk={this.addImageFromState}
+          okDisabled={src === ''}
+          width={600}>
           {overlay}
         </Modal>
       </div>

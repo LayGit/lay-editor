@@ -9,11 +9,12 @@ const DefaultFooter = (props) => {
     cancelText,
     onOk,
     onCancel,
+    okDisabled
   } = props
   return (
     <div>
       <button className="lay-editor-button" onClick={onCancel}>{cancelText}</button>
-      <button className="lay-editor-button lay-editor-button-primary" onClick={onOk}>{okText}</button>
+      <button className="lay-editor-button lay-editor-button-primary" disabled={okDisabled} onClick={onOk}>{okText}</button>
     </div>
   )
 }
@@ -27,6 +28,7 @@ const Modal = (props) => {
     onOk,
     onCancel,
     onClose,
+    okDisabled,
     ...restProps
   } = props
   const closeIcon = (
@@ -39,7 +41,8 @@ const Modal = (props) => {
     okText={okText}
     cancelText={cancelText}
     onOk={onOk}
-    onCancel={onCancel || onClose} />
+    onCancel={onCancel || onClose}
+    okDisabled={okDisabled}/>
   )
   const myFoooter = footer || defaultFooter
   return (
@@ -61,6 +64,7 @@ Modal.propTypes = {
   cancelText: PropTypes.string,
   onOk: PropTypes.func,
   onCancel: PropTypes.func,
+  okDisabled: PropTypes.bool
 }
 
 export default Modal

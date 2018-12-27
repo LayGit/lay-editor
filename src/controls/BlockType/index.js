@@ -43,7 +43,6 @@ export default class BlockType extends Component {
   toggleBlockType = (blockType) => {
     const blockTypeValue = this.blocksTypes.find(bt => bt.label === blockType).style
     const { editorState, onChange } = this.props
-    console.log(blockType)
     const newState = RichUtils.toggleBlockType(editorState, blockTypeValue)
     if (newState) {
       onChange(newState)
