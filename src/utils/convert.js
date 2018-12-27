@@ -29,7 +29,6 @@ const contentToHtml = (content) => {
 }
 
 const valueToHtml = (value) => {
-  value = value || EditorState.createEmpty()
   return contentToHtml(valueToContent(value))
 }
 
