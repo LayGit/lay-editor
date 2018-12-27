@@ -1084,7 +1084,7 @@
 .lay-editor-wrapper pre {
   background: #f1f1f1;
   border-radius: 3px;
-  padding: 1px 10px;
+  padding: 10px 10px;
   font-family: Inconsolata,Menlo,Consolas,monospace;
 }
 .lay-editor-toolbar-wrapper {

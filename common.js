@@ -62798,7 +62798,7 @@ var BlockType = function (_Component) {
 
     return _ret = (_temp = (_this = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_possibleConstructorReturn___default()(this, _Component.call.apply(_Component, [this].concat(args))), _this), _this.state = {
       currentBlockType: 'unstyled'
-    }, _this.blocksTypes = [{ label: 'Normal', style: 'unstyled' }, { label: 'H1', style: 'header-one' }, { label: 'H2', style: 'header-two' }, { label: 'H3', style: 'header-three' }, { label: 'H4', style: 'header-four' }, { label: 'H5', style: 'header-five' }, { label: 'H6', style: 'header-six' }, { label: 'Blockquote', style: 'blockquote' }, { label: 'Code', style: 'code-block' }], _this.toggleBlockType = function (blockType) {
+    }, _this.blocksTypes = [{ label: 'Normal', style: 'unstyled' }, { label: 'H1', style: 'header-one' }, { label: 'H2', style: 'header-two' }, { label: 'H3', style: 'header-three' }, { label: 'H4', style: 'header-four' }, { label: 'H5', style: 'header-five' }, { label: 'H6', style: 'header-six' }, { label: 'Blockquote', style: 'blockquote' }, { label: 'Code', style: 'code' }], _this.toggleBlockType = function (blockType) {
       var blockTypeValue = _this.blocksTypes.find(function (bt) {
         return bt.label === blockType;
       }).style;
@@ -74265,7 +74265,6 @@ var contentToHtml = function contentToHtml(content) {
 };
 
 var valueToHtml = function valueToHtml(value) {
-  value = value || __WEBPACK_IMPORTED_MODULE_0_draft_js__["EditorState"].createEmpty();
   return contentToHtml(valueToContent(value));
 };
 
