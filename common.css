@@ -1621,6 +1621,10 @@ textarea.lay-editor-input {
 .lay-editor-alignment-popup-active:hover {
   color: #1890ff !important;
 }
+.lay-editor-alignment-popup-right {
+  left: auto;
+  right: 0;
+}
 .rc-tooltip-inner {
   min-height: 0;
 }
