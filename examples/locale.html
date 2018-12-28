@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>simple.js - example - lay-editor@0.0.4</title>
+  <title>locale.js - example - lay-editor@0.0.4</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -271,36 +271,17 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
-<span class="hljs-keyword">import</span> { LayEditor, htmlToValue, contentToValue, valueToHtml, valueToContent } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>
+<span class="hljs-keyword">import</span> { LayEditor } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>
 
 class Test extends Component {
   state = {
     // EditorState
     value: undefined,
-    html: <span class="hljs-string">''</span>,
-    content: <span class="hljs-string">''</span>
+    locale: <span class="hljs-string">'en-US'</span>,
   }
 
-  onHtmlToValue = () =&gt; {
-    const html = <span class="hljs-string">'&lt;p&gt;html value&lt;/p&gt;'</span>
-    this.setState({
-      value: htmlToValue(html)
-    })
-  }
-
-  onContentToValue = () =&gt; {
-    const content = <span class="hljs-string">'{"blocks":[{"key":"bk33u","text":"raw content","type":"unstyled","depth":0,"inlineStyleRanges":[],"entityRanges":[],"data":{}}],"entityMap":{}}'</span>
-    this.setState({
-      value: contentToValue(JSON.parse(content))
-    })
-  }
-
-  onValueToHtml = () =&gt; {
-    this.setState({ html: valueToHtml(this.state.value) })
-  }
-
-  onValueToContent = () =&gt; {
-    this.setState({ content: JSON.stringify(valueToContent(this.state.value)) })
+  onChangeLocale(locale) {
+    this.setState({ locale })
   }
 
   onChange = (value) =&gt; {
@@ -308,37 +289,24 @@ class Test extends Component {
   }
 
   render () {
-    const { value, html, content } = this.state
+    const { value, locale } = this.state
+
+    const placeholder = {
+      <span class="hljs-string">'zh-CN'</span>: <span class="hljs-string">'写点什么吧...'</span>,
+      <span class="hljs-string">'en-US'</span>: <span class="hljs-string">'write something...'</span>
+    }
+
     return (
       &lt;div style={{ padding: 20 }}&gt;
         &lt;LayEditor
           value={value}
           onChange={this.onChange}
-          placeholder=<span class="hljs-string">"write something..."</span> /&gt;
+          locale={locale}
+          placeholder={placeholder[locale]} /&gt;
         &lt;p&gt;
-          &lt;button onClick={this.onHtmlToValue}&gt;html to value&lt;/button&gt;
+          &lt;button onClick={this.onChangeLocale.bind(this, <span class="hljs-string">'zh-CN'</span>)}&gt;简体中文&lt;/button&gt;
           &amp;nbsp;&amp;nbsp;
-          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onContentToValue}</span>&gt;</span>content to value<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-          &amp;nbsp;&amp;nbsp;
-          <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onValueToHtml}</span>&gt;</span>value to html<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-          &amp;nbsp;&amp;nbsp;
-          <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onValueToContent}</span>&gt;</span>value to content<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          convert value to html<span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span>
-            <span class="hljs-attribute">readOnly</span>
-            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> '<span class="hljs-attribute">100</span>%' }}
-            <span class="hljs-attribute">rows</span>=<span class="hljs-value">{5}</span>
-            <span class="hljs-attribute">value</span>=<span class="hljs-value">{html}</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>
-          convert value to raw object<span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">textarea</span>
-            <span class="hljs-attribute">readOnly</span>
-            <span class="hljs-attribute">style</span>=<span class="hljs-value">{{</span> <span class="hljs-attribute">width:</span> '<span class="hljs-attribute">100</span>%' }}
-            <span class="hljs-attribute">rows</span>=<span class="hljs-value">{5}</span>
-            <span class="hljs-attribute">value</span>=<span class="hljs-value">{content}</span> /&gt;</span>
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onChangeLocale.bind(this,</span> '<span class="hljs-attribute">en-US</span>')}&gt;</span>English<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>
@@ -356,7 +324,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="../common.js?nowrap"></script>
-  <script src="simple.js?nowrap"></script>
+  <script src="locale.js?nowrap"></script>
 </body>
 
 </html>

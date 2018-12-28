@@ -1542,6 +1542,8 @@ textarea.lay-editor-input {
 }
 .lay-editor-image-alignment {
   position: relative;
+  width: 100%;
+  overflow: auto;
 }
 .lay-editor-image-left {
   display: -ms-flexbox;
@@ -1561,8 +1563,6 @@ textarea.lay-editor-input {
 }
 .lay-editor-image-wrapper {
   position: relative;
-  width: 100%;
-  overflow: auto;
 }
 .lay-editor-image-preview {
   width: 100%;
