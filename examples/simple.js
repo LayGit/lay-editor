@@ -24,6 +24,14 @@ class Test extends Component {
     })
   }
 
+  onValueToHtml = () => {
+    this.setState({ html: valueToHtml(this.state.value) })
+  }
+
+  onValueToContent = () => {
+    this.setState({ content: JSON.stringify(valueToContent(this.state.value)) })
+  }
+
   onChange = (value) => {
     this.setState({ value })
   }
@@ -40,6 +48,10 @@ class Test extends Component {
           <button onClick={this.onHtmlToValue}>html to value</button>
           &nbsp;&nbsp;
           <button onClick={this.onContentToValue}>content to value</button>
+          &nbsp;&nbsp;
+          <button onClick={this.onValueToHtml}>value to html</button>
+          &nbsp;&nbsp;
+          <button onClick={this.onValueToContent}>value to content</button>
         </p>
         <p>
           convert value to html<br />
@@ -47,7 +59,7 @@ class Test extends Component {
             readOnly
             style={{ width: '100%' }}
             rows={5}
-            value={valueToHtml(value)} />
+            value={html} />
         </p>
         <p>
           convert value to raw object<br />
@@ -55,7 +67,7 @@ class Test extends Component {
             readOnly
             style={{ width: '100%' }}
             rows={5}
-            value={JSON.stringify(valueToContent(value))} />
+            value={content} />
         </p>
       </div>
     )

@@ -212,10 +212,10 @@ export default class Upload extends Component {
       beforeUpload: this.beforeUpload
     }
 
-    const { accept, maxSize } = this.props
+    const { accept, maxSize, locale } = this.props
 
-    let acceptFmt = accept ? accept.replace(/image\//g, '') : '所有格式'
-    let maxSizeLimit = maxSize > 0 ? `大小不超过 ${maxSize / 1024 / 1024}m` : '不限大小'
+    let acceptFmt = accept ? accept.replace(/image\//g, '') : locale.format('toolbar.image.upload.drag.hint.acceptAll')
+    let maxSizeLimit = maxSize > 0 ? `${locale.format('toolbar.image.upload.drag.hint.size.limit')} ${maxSize / 1024 / 1024}m` : locale.format('toolbar.image.upload.drag.hint.size.infinite')
 
     const { fileList } = this.state
     const file = fileList.length > 0 ? fileList[0] : {}
@@ -236,10 +236,10 @@ export default class Upload extends Component {
               <p className="lay-editor-upload-drag-icon">
                 <Icon type="icon-inbox" />
               </p>
-              <p className="lay-editor-upload-text">点击或拖放文件到此处上传</p>
-              <p className="lay-editor-upload-hint">{`支持 ${acceptFmt}，${maxSizeLimit}`}</p>
+              <p className="lay-editor-upload-text">{locale.format('toolbar.image.upload.drag.title')}</p>
+              <p className="lay-editor-upload-hint">{`${locale.format('toolbar.image.upload.drag.hint.support')} ${acceptFmt}，${maxSizeLimit}`}</p>
               {file.status === 'error' && (
-                <p className="lay-editor-upload-error">上传失败:{file.error}</p>
+                <p className="lay-editor-upload-error">{locale.format('toolbar.image.upload.failed')}:{file.error}</p>
               )}
             </div>
           </RcUpload>
@@ -249,7 +249,7 @@ export default class Upload extends Component {
                 <div className="lay-editor-upload-progress-loading"></div>
                 <div className="lay-editor-upload-progress-percent">{file.percent ? `${Number(file.percent).toFixed(0)}%` : ''}</div>
               </div>
-              <div className="lay-editor-upload-progress-hint">正在上传...</div>
+              <div className="lay-editor-upload-progress-hint">{locale.format('toolbar.image.upload.uploading')}...</div>
             </div>
           )}
         </div>

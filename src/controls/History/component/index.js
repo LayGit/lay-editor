@@ -7,7 +7,8 @@ const LayoutComponent = (props) => {
   const {
     config,
     currentState,
-    onChange
+    onChange,
+    locale
   } = props
 
   const getDisabled = (howdo) => {
@@ -28,7 +29,7 @@ const LayoutComponent = (props) => {
             value={howdo}
             onClick={onChange}
             disabled={getDisabled(howdo)}
-            title={config[howdo].title}>
+            title={locale.format(config[howdo].title)}>
             <Icon type={config[howdo].icon} />
           </ToolButton>
         ))
@@ -40,7 +41,8 @@ const LayoutComponent = (props) => {
 LayoutComponent.propTypes = {
   config: PropTypes.object,
   onChange: PropTypes.func,
-  currentState: PropTypes.object
+  currentState: PropTypes.object,
+  locale: PropTypes.object,
 }
 
 export default LayoutComponent

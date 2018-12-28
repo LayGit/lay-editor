@@ -8,17 +8,18 @@ const getImageComponent = config => class Image extends Component {
   }
 
   getAlignmentPanel = (alignment) => {
+    const { locale } = config
     return (
       <div className={classNames('lay-editor-alignment-popup')}>
         <span
           onClick={this.setEntityAlignmentLeft}
-          className={alignment === 'left' ? 'lay-editor-alignment-popup-active' : null}>靠左</span>
+          className={alignment === 'left' ? 'lay-editor-alignment-popup-active' : null}>{locale.format('image.align.left')}</span>
         <span
           onClick={this.setEntityAlignmentCenter}
-          className={alignment === 'center' ? 'lay-editor-alignment-popup-active' : null}>居中</span>
+          className={alignment === 'center' ? 'lay-editor-alignment-popup-active' : null}>{locale.format('image.align.center')}</span>
         <span
           onClick={this.setEntityAlignmentRight}
-          className={alignment === 'right' ? 'lay-editor-alignment-popup-active' : null}>靠右</span>
+          className={alignment === 'right' ? 'lay-editor-alignment-popup-active' : null}>{locale.format('image.align.right')}</span>
       </div>
     )
   }
@@ -44,8 +45,7 @@ const getImageComponent = config => class Image extends Component {
     this.setState({ refresh: true })
   }
 
-  toggleHovered = () => {
-    const hovered = !this.state.hovered
+  toggleHovered = (hovered) => {
     this.setState({ hovered })
   }
 
@@ -62,8 +62,8 @@ const getImageComponent = config => class Image extends Component {
       <span
         className={classNames('lay-editor-image-alignment', `lay-editor-image-${alignment}`)}>
         <span
-          onMouseEnter={this.toggleHovered}
-          onMouseLeave={this.toggleHovered}
+          onMouseEnter={this.toggleHovered.bind(this, true)}
+          onMouseLeave={this.toggleHovered.bind(this, false)}
           className="lay-editor-image-wrapper">
           <img
             src={src}

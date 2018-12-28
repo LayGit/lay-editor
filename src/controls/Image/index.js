@@ -8,6 +8,7 @@ export default class Image extends Component {
     editorState: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     config: PropTypes.object,
+    locale: PropTypes.object,
   }
 
   state = {
@@ -36,7 +37,7 @@ export default class Image extends Component {
   }
 
   render () {
-    const { config } = this.props
+    const { config, locale } = this.props
     const { dialogVisible } = this.state
     return (
       <LayoutComponent
@@ -44,7 +45,8 @@ export default class Image extends Component {
         onChange={this.addImage}
         dialogVisible={dialogVisible}
         showDialog={this.showDialog}
-        hideDialog={this.hideDialog}/>
+        hideDialog={this.hideDialog}
+        locale={locale}/>
     )
   }
 }

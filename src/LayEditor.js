@@ -27,6 +27,27 @@ import KeyDownHandler from "./events/keydown"
 import SuggestionHandler from './events/suggestions'
 import ModalHandler from './events/modals'
 import getBlockRenderFunc from './renderer'
+import locales from './locales'
+
+const getLocale = (locale) => {
+  let newLocale
+  if (!locale) {
+    newLocale = locales['en-US']
+  } else if (typeof locale === 'string') {
+    newLocale = locale && (locale in locales) ? locales[locale] : locales['en-US']
+  } else {
+    newLocale = locale
+  }
+  newLocale.format = function (val) {
+    const self = this
+    if (self[val]) {
+      return self[val]
+    }
+    return val
+  }
+
+  return newLocale
+}
 
 class LayEditor extends Component {
   static propTypes = {
@@ -51,15 +72,18 @@ class LayEditor extends Component {
     mention: PropTypes.object,
     hashtag: PropTypes.object,
     placeholder: PropTypes.string,
+    locale: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
   }
 
   constructor(props) {
     super(props)
     const toolbar = mergeRecursive(defaultToolbar, props.toolbar)
+    const locale = getLocale(props.locale)
     this.state = {
       editorState: undefined,
       editorFocused: false,
-      toolbar
+      toolbar,
+      locale,
     }
     const wrapperId = props.wrapperId ? props.wrapperId : Math.floor(Math.random() * 10000)
     this.wrapperId = `lay-editor-${wrapperId}`
@@ -70,7 +94,8 @@ class LayEditor extends Component {
         isReadOnly: this.isReadOnly,
         isImageAlignmentEnabled: this.isImageAlignmentEnabled,
         getEditorState: this.getEditorState,
-        onChange: this.onChange
+        onChange: this.onChange,
+        locale: locale
       },
       props.customBlockRenderFunc
     )
@@ -94,6 +119,11 @@ class LayEditor extends Component {
     if (this.props.toolbar !== nextProps.toolbar) {
       const toolbar = mergeRecursive(defaultToolbar, toolbar)
       newState.toolbar = toolbar
+    }
+
+    // 判断 locale 是否改变
+    if (nextProps.locale !== this.props.locale) {
+      newState.locale = getLocale(nextProps.locale)
     }
 
     // editorState 改变
@@ -331,7 +361,7 @@ class LayEditor extends Component {
   }
 
   render () {
-    const { editorState, editorFocused, toolbar } = this.state
+    const { editorState, editorFocused, toolbar, locale } = this.state
     const {
       toolbarHidden,
       toolbarToggleEnable,
@@ -369,7 +399,7 @@ class LayEditor extends Component {
                 const Control = Controls[opt]
                 const config = toolbar[opt]
                 return (
-                  <Control key={index} {...controlProps} config={config} />
+                  <Control key={index} locale={locale} {...controlProps} config={config} />
                 )
               })
             }

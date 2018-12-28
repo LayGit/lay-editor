@@ -50,7 +50,7 @@ class Test extends Component {
           toolbar={toolbar}
           value={this.state.value}
           onChange={this.onChange}
-          placeholder="写点什么吧..." />
+          placeholder="write something..." />
       </div>
     )
   }

@@ -10,6 +10,7 @@ export default class LayoutComponent extends Component {
     onChange: PropTypes.func,
     config: PropTypes.object,
     currentState: PropTypes.object,
+    locale: PropTypes.object,
   }
 
   state = {
@@ -51,7 +52,8 @@ export default class LayoutComponent extends Component {
 
   render () {
     const {
-      config: { options, icon, title }
+      config: { options, icon, title },
+      locale,
     } = this.props
     let { currentState: { fontSize: currentFontSize } } = this.props
     let { defaultFontSize } = this.state
@@ -64,7 +66,7 @@ export default class LayoutComponent extends Component {
           trigger={['click']}
           overlay={menu}
           animation="slide-up">
-          <ToolButton title={title}>
+          <ToolButton title={locale.format(title)}>
             <Icon type={icon} />
           </ToolButton>
         </Dropdown>

@@ -7,7 +7,8 @@ const LayoutComponent = (props) => {
   const {
     config,
     currentState: { textAlignment },
-    onChange
+    onChange,
+    locale,
   } = props
   return (
     <div className="lay-editor-tool-wrapper">
@@ -18,7 +19,7 @@ const LayoutComponent = (props) => {
             value={alignment}
             onClick={onChange}
             active={textAlignment === alignment}
-            title={config[alignment].title}>
+            title={locale.format(config[alignment].title)}>
             <Icon type={config[alignment].icon} />
           </ToolButton>
         ))
@@ -31,6 +32,7 @@ LayoutComponent.propTypes = {
   config: PropTypes.object,
   onChange: PropTypes.func,
   currentState: PropTypes.object,
+  locale: PropTypes.object,
 }
 
 export default LayoutComponent

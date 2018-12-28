@@ -112,6 +112,7 @@ const UploadTab = (props) => {
     config,
     src,
     upto,
+    locale,
   } = props
 
   return src ? (
@@ -120,23 +121,23 @@ const UploadTab = (props) => {
       <div
         onClick={onReset}
         className="lay-editor-image-preview-del">
-        <Icon type="icon-chexiao" /> 重新上传
+        <Icon type="icon-chexiao" /> {locale.format('toolbar.image.upload.reset')}
       </div>
     </div>
   ) : (
-    <Upload {...getUploadProps(config)} />
+    <Upload {...getUploadProps(config)} locale={locale} />
   )
 }
 
 const NetworkTab = (props) => {
-  const { src, onChange } = props
+  const { src, onChange, locale } = props
   const onInputChange = (e) => {
     onChange(e.target.value)
   }
   return (
     <div className="lay-editor-form">
       <div className="lay-editor-form-item">
-        <div className="lay-editor-form-item-label">图片地址</div>
+        <div className="lay-editor-form-item-label">{locale.format('toolbar.image.form.label.url')}</div>
         <div className="lay-editor-form-item-control">
           <input className="lay-editor-input" placeholder="http://" value={src} onChange={onInputChange} />
         </div>
@@ -146,12 +147,12 @@ const NetworkTab = (props) => {
 }
 
 const ImageSettings = (props) => {
-const { state, updateState, altEnabled } = props
+const { state, updateState, altEnabled, locale } = props
   const { width, height, alt } = state
   return (
     <div className="lay-editor-form">
       <div className="lay-editor-form-item">
-        <div className="lay-editor-form-item-label">图片宽度</div>
+        <div className="lay-editor-form-item-label">{locale.format('toolbar.image.form.label.width')}</div>
         <div className="lay-editor-form-item-control">
           <input
             className="lay-editor-input"
@@ -161,7 +162,7 @@ const { state, updateState, altEnabled } = props
         </div>
       </div>
       <div className="lay-editor-form-item">
-        <div className="lay-editor-form-item-label">图片高度</div>
+        <div className="lay-editor-form-item-label">{locale.format('toolbar.image.form.label.height')}</div>
         <div className="lay-editor-form-item-control">
           <input
             className="lay-editor-input"
@@ -172,7 +173,7 @@ const { state, updateState, altEnabled } = props
       </div>
       {altEnabled && (
         <div className="lay-editor-form-item">
-          <div className="lay-editor-form-item-label">备注</div>
+          <div className="lay-editor-form-item-label">{locale.format('toolbar.image.form.label.alt')}</div>
           <div className="lay-editor-form-item-control">
             <input
               className="lay-editor-input"
@@ -227,12 +228,19 @@ export default class LayoutComponent extends Component {
       dialogVisible,
       showDialog,
       hideDialog,
+      locale,
     } = this.props
 
     const { tabActiveKey, src } = this.state
 
     const getImageSettingsComponent = () => {
-      return (<ImageSettings altEnabled={altEnabled} state={this.state} updateState={props => this.setState(props)} />)
+      return (
+        <ImageSettings
+          locale={locale}
+          altEnabled={altEnabled}
+          state={this.state}
+          updateState={props => this.setState(props)} />
+      )
     }
 
     const overlay = (
@@ -243,12 +251,12 @@ export default class LayoutComponent extends Component {
         tabBarPosition="left"
         renderTabBar={()=><TabBar />}
         renderTabContent={()=><TabContent animated={false} />}>
-        <TabPane tab='本地上传' key="local">
-          <UploadTab src={src} onChange={(src) => this.setState({ src })} config={this.props.config} />
+        <TabPane tab={locale.format('toolbar.image.upload.local')} key="local">
+          <UploadTab src={src} onChange={(src) => this.setState({ src })} config={this.props.config} locale={locale} />
           {getImageSettingsComponent()}
         </TabPane>
-        <TabPane tab='网络图片' key="network">
-          <NetworkTab src={src} onChange={(src) => this.setState({ src })} />
+        <TabPane tab={locale.format('toolbar.image.upload.network')} key="network">
+          <NetworkTab src={src} onChange={(src) => this.setState({ src })} locale={locale} />
           {getImageSettingsComponent()}
         </TabPane>
       </Tabs>
@@ -256,17 +264,18 @@ export default class LayoutComponent extends Component {
 
     return (
       <div className="lay-editor-tool-wrapper">
-        <ToolButton title={title} onClick={showDialog}>
+        <ToolButton title={locale.format(title)} onClick={showDialog}>
           <Icon type={icon} />
         </ToolButton>
         <Modal
-          title="插入图片"
+          title={locale.format('toolbar.image.title')}
           bodyStyle={{ padding: 10 }}
           visible={dialogVisible}
           onClose={hideDialog}
           onOk={this.addImageFromState}
           okDisabled={src === ''}
-          width={600}>
+          width={600}
+          locale={locale}>
           {overlay}
         </Modal>
       </div>

@@ -7,7 +7,8 @@ const LayoutComponent = (props) => {
   const {
     config,
     currentState: { blockType },
-    onChange
+    onChange,
+    locale
   } = props
 
   return (
@@ -19,7 +20,7 @@ const LayoutComponent = (props) => {
             value={block}
             onClick={onChange}
             active={blockType === block}
-            title={config[block].title}>
+            title={locale.format(config[block].title)}>
             <Icon type={config[block].icon} />
           </ToolButton>
         ))

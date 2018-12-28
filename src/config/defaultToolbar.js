@@ -19,13 +19,13 @@ export default {
       "superscript",
       "subscript",
     ],
-    bold: { icon: 'icon-cuti', title: '加粗' },
-    italic: { icon: 'icon-xieti', title: '斜体' },
-    underline: { icon: 'icon-xiahuaxian', title: '下划线' },
-    strikethrough: { icon: 'icon-shanchuxian', title: '删除线' },
-    monospace: { icon: 'icon-dakuohao', title: '强调字体' },
-    superscript: { icon:'icon-sup', title: '上标' },
-    subscript: { icon: 'icon-sub', title: '下标' }
+    bold: { icon: 'icon-cuti', title: 'toolbar.inline.bold' },
+    italic: { icon: 'icon-xieti', title: 'toolbar.inline.italic' },
+    underline: { icon: 'icon-xiahuaxian', title: 'toolbar.inline.underline' },
+    strikethrough: { icon: 'icon-shanchuxian', title: 'toolbar.inline.strikethrough' },
+    monospace: { icon: 'icon-dakuohao', title: 'toolbar.inline.monospace' },
+    superscript: { icon:'icon-sup', title: 'toolbar.inline.superscript' },
+    subscript: { icon: 'icon-sub', title: 'toolbar.inline.subscript' }
   },
   blockType: {
     options: [
@@ -35,15 +35,15 @@ export default {
       "Blockquote",
       "Code"
     ],
-    H1: { icon: 'icon-h1', title: '大标题' },
-    H2: { icon: 'icon-h2', title: '中标题' },
-    H3: { icon: 'icon-h3', title: '小标题' },
-    Blockquote: { icon: 'icon-yinyong', title: '引用' },
-    Code: { icon: 'icon-daima', title: '代码' }
+    H1: { icon: 'icon-h1', title: 'toolbar.blockType.h1' },
+    H2: { icon: 'icon-h2', title: 'toolbar.blockType.h2' },
+    H3: { icon: 'icon-h3', title: 'toolbar.blockType.h3' },
+    Blockquote: { icon: 'icon-yinyong', title: 'toolbar.blockType.quote' },
+    Code: { icon: 'icon-daima', title: 'toolbar.blockType.code' }
   },
   fontSize: {
     options: [12, 14, 16, 18, 24, 30, 36, 48],
-    title: '字号',
+    title: 'toolbar.fontsize.title',
     icon: 'icon-fontsize'
   },
   list: {
@@ -53,10 +53,10 @@ export default {
       "indent",
       "outdent"
     ],
-    unordered: { icon: 'icon-wuxuliebiao', title: '无序列表' },
-    ordered: { icon: 'icon-youxuliebiao', title: '有序列表' },
-    indent: { icon: 'icon-yousuojin', title: '增加缩进' },
-    outdent: { icon: 'icon-zuosuojin', title: '减少缩进' },
+    unordered: { icon: 'icon-wuxuliebiao', title: 'toolbar.list.unordered' },
+    ordered: { icon: 'icon-youxuliebiao', title: 'toolbar.list.ordered' },
+    indent: { icon: 'icon-yousuojin', title: 'toolbar.list.indent' },
+    outdent: { icon: 'icon-zuosuojin', title: 'toolbar.list.outdent' },
   },
   textAlign: {
     options: [
@@ -65,14 +65,14 @@ export default {
       "right",
       "justify"
     ],
-    left: { icon: 'icon-juzuoduiqi', title: '左对齐' },
-    center: { icon: 'icon-juzhongduiqi', title: '居中对齐' },
-    right: { icon: 'icon-juyouduiqi', title: '右对齐' },
-    justify: { icon: 'icon-liangduanduiqi', title: '两端对齐' }
+    left: { icon: 'icon-juzuoduiqi', title: 'toolbar.textAlign.left' },
+    center: { icon: 'icon-juzhongduiqi', title: 'toolbar.textAlign.center' },
+    right: { icon: 'icon-juyouduiqi', title: 'toolbar.textAlign.right' },
+    justify: { icon: 'icon-liangduanduiqi', title: 'toolbar.textAlign.justify' }
   },
   image: {
     icon: 'icon-shangchuantupian',
-    title: '插入图片',
+    title: 'toolbar.image.title',
     altEnabled: false,
     alignmentEnabled: true,
     defaultSize: {
@@ -93,11 +93,11 @@ export default {
   },
   remove: {
     icon: 'icon-xiangpica',
-    title: '清除样式'
+    title: 'toolbar.remove.title'
   },
   history: {
     options: ["undo", "redo"],
-    undo: { icon: 'icon-chexiao', title: '撤销' },
-    redo: { icon: 'icon-chongzuo', title: '重做' }
+    undo: { icon: 'icon-chexiao', title: 'toolbar.history.undo' },
+    redo: { icon: 'icon-chongzuo', title: 'toolbar.history.redo' }
   }
 };

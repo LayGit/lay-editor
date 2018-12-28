@@ -4,7 +4,7 @@ import ToolButton from '../../../components/ToolButton'
 import Icon from '../../../components/Icon'
 
 const LayoutComponent = (props) => {
-  const { config, currentState, onChange } = props
+  const { config, currentState, onChange, locale } = props
   return (
     <div className="lay-editor-tool-wrapper">
       {
@@ -14,7 +14,7 @@ const LayoutComponent = (props) => {
             value={style}
             onClick={onChange}
             active={currentState[style] === true || (style === 'MONOSPACE' && currentState.CODE)}
-            title={config[style].title}>
+            title={locale.format(config[style].title)}>
             <Icon type={config[style].icon} />
           </ToolButton>
         ))
@@ -27,6 +27,7 @@ LayoutComponent.propTypes = {
   config: PropTypes.object,
   onChange: PropTypes.func,
   currentState: PropTypes.object,
+  locale: PropTypes.object,
 }
 
 export default LayoutComponent

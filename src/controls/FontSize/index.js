@@ -12,6 +12,7 @@ export default class FontSize extends Component {
     onChange: PropTypes.func.isRequired,
     editorState: PropTypes.object,
     config: PropTypes.object,
+    locale: PropTypes.object,
   }
 
   state = {
@@ -47,7 +48,7 @@ export default class FontSize extends Component {
   }
 
   render() {
-    const { config, translations } = this.props
+    const { config, translations, locale } = this.props
     const { currentFontSize } = this.state
     const fontSize = currentFontSize && Number(currentFontSize.substring(9))
     return (
@@ -55,6 +56,7 @@ export default class FontSize extends Component {
         config={config}
         currentState={{ fontSize }}
         onChange={this.toggleFontSize}
+        locale={locale}
       />
     )
   }

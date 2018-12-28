@@ -45,14 +45,16 @@ const Remove = (props) => {
   return (
     <LayoutComponent
       config={props.config}
-      onChange={removeInlineStyles}/>
+      onChange={removeInlineStyles}
+      locale={props.locale}/>
   )
 }
 
 Remove.propTypes = {
   onChange: PropTypes.func.isRequired,
   editorState: PropTypes.object.isRequired,
-  config: PropTypes.object
+  config: PropTypes.object,
+  locale: PropTypes.object,
 }
 
 export default Remove

@@ -10,6 +10,7 @@ export default class Inline extends Component {
     onChange: PropTypes.func.isRequired,
     editorState: PropTypes.object.isRequired,
     config: PropTypes.object,
+    locale: PropTypes.object,
   }
 
   state = {
@@ -59,13 +60,14 @@ export default class Inline extends Component {
   }
 
   render () {
-    const { config } = this.props
+    const { config, locale } = this.props
     const { currentStyles } = this.state
     return (
       <LayoutComponent
         config={config}
         currentState={currentStyles}
-        onChange={this.toggleInlineStyle}/>
+        onChange={this.toggleInlineStyle}
+        locale={locale}/>
     )
   }
 }

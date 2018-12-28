@@ -9,7 +9,8 @@ const DefaultFooter = (props) => {
     cancelText,
     onOk,
     onCancel,
-    okDisabled
+    okDisabled,
+    locale
   } = props
   return (
     <div>
@@ -21,10 +22,11 @@ const DefaultFooter = (props) => {
 
 const Modal = (props) => {
   const {
+    locale,
     width = 520,
     footer,
-    okText = "确定",
-    cancelText = "取消",
+    okText = locale.format('text.ok'),
+    cancelText = locale.format('text.cancel'),
     onOk,
     onCancel,
     onClose,

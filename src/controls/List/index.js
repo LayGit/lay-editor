@@ -67,7 +67,7 @@ class List extends Component {
     const { editorState } = this.props
     const { currentBlock } = this.state
     const previousBlock = getBlockBeforeSelectedBlock(editorState)
-    
+
     if (!previousBlock || !isListBlock(currentBlock) ||
       (previousBlock.get('type') !== currentBlock.get('type')) ||
       (previousBlock.get('depth') < currentBlock.get('depth'))
@@ -83,7 +83,7 @@ class List extends Component {
   }
 
   render () {
-    const { config } = this.props
+    const { config, locale } = this.props
     const { currentBlock } = this.state
     let listType
     if (currentBlock.get('type') === 'unordered-list-item') {
@@ -99,7 +99,8 @@ class List extends Component {
         currentState={{ listType }}
         onChange={this.onChange}
         indentDisabled={indentDisabled}
-        outdentDisabled={outdentDisabled}/>
+        outdentDisabled={outdentDisabled}
+        locale={locale}/>
     )
   }
 }
@@ -108,6 +109,7 @@ List.propTypes = {
   onChange: PropTypes.func.isRequired,
   editorState: PropTypes.object.isRequired,
   config: PropTypes.object,
+  locale: PropTypes.object
 }
 
 export default List

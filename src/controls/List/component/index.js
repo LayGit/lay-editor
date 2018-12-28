@@ -9,7 +9,8 @@ const LayoutComponent = (props) => {
     currentState: { listType },
     indentDisabled,
     outdentDisabled,
-    onChange
+    onChange,
+    locale,
   } = props
   const options = config.options
 
@@ -55,7 +56,7 @@ const LayoutComponent = (props) => {
             onClick={toggleBlockType}
             active={getActive(style, listType)}
             disabled={getDisabled(style)}
-            title={config[style].title}>
+            title={locale.format(config[style].title)}>
             <Icon type={config[style].icon} />
           </ToolButton>
         ))
@@ -70,6 +71,7 @@ LayoutComponent.propTypes = {
   currentState: PropTypes.object,
   indentDisabled: PropTypes.bool,
   outdentDisabled: PropTypes.bool,
+  locale: PropTypes.object,
 }
 
 export default LayoutComponent

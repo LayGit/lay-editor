@@ -9,6 +9,7 @@ export default class BlockType extends Component {
     onChange: PropTypes.func.isRequired,
     editorState: PropTypes.object.isRequired,
     config: PropTypes.object,
+    locale: PropTypes.object,
   }
 
   state = {
@@ -50,14 +51,15 @@ export default class BlockType extends Component {
   }
 
   render () {
-    const { config } = this.props
+    const { config, locale } = this.props
     const { currentBlockType } = this.state
     const blockType = this.blocksTypes.find(bt => bt.style === currentBlockType)
     return (
       <LayoutComponent
         config={config}
         currentState={{ blockType: blockType && blockType.label }}
-        onChange={this.toggleBlockType}/>
+        onChange={this.toggleBlockType}
+        locale={locale}/>
     )
   }
 }

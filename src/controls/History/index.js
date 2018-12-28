@@ -8,6 +8,7 @@ export default class Inline extends Component {
     onChange: PropTypes.func.isRequired,
     editorState: PropTypes.object.isRequired,
     config: PropTypes.object,
+    locale: PropTypes.object,
   }
 
   state = {
@@ -43,13 +44,14 @@ export default class Inline extends Component {
   }
 
   render () {
-    const { config } = this.props
+    const { config, locale } = this.props
     const { undoDisabled, redoDisabled } = this.state
     return (
       <LayoutComponent
         config={config}
         currentState={{ undoDisabled, redoDisabled }}
-        onChange={this.onChange}/>
+        onChange={this.onChange}
+        locale={locale}/>
     )
   }
 }
