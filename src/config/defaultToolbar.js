@@ -98,6 +98,14 @@ export default {
       style: '',
       dataFn: undefined,
     },
+    aliyun: {
+      accessKeyId: '',
+      domain: '',
+      policy: '',
+      sign: '',
+      key: '',
+      dataFn: undefined
+    }
   },
   remove: {
     icon: 'icon-xiangpica',

@@ -39,17 +39,17 @@ const UploadTab = (props) => {
     }
 
     if (isNaN(maxSize)) {
-      // 处理 m 和 k
+      // support 'm' and 'k' unit size string
       const unit = maxSize[maxSize.length - 1]
       const maxSizeNum = Number(maxSize.substr(0, maxSize.length - 1))
       maxSize = unit == 'm' ? maxSizeNum * 1024 * 1024 : maxSizeNum * 1024
     }
 
-    // 获取文件大小限制
+    // get file size limit
     return maxSize
   }
 
-  // 获取 base64 的上传配置
+  // get base64 upload props
   const getBase64UploadProps = () => {
     const beforeUpload = (file) => {
       const reader = new FileReader()
@@ -64,7 +64,7 @@ const UploadTab = (props) => {
     }
   }
 
-  // 获取服务端上传配置
+  // get server upload props
   const getServerUploadProps = () => {
     const { onChange, config } = props
     const { server: { url, data, headers, file, withCredentials, resultFn } } = config
@@ -79,7 +79,7 @@ const UploadTab = (props) => {
     }
   }
 
-  // 获取七牛上传配置
+  // get qiniu upload props
   const getQiniuUploadProps = () => {
     const { onChange, config } = props
     const { qiniu: { area, key, token, domain, style = '', dataFn } } = config
@@ -109,12 +109,29 @@ const UploadTab = (props) => {
     }
   }
 
-  // 获取阿里云上传配置
+  // get aliyun oss uplaod props
   const getAliyunUploadProps = () => {
+    const { onChange, config } = props
+    const { aliyun: { accessKeyId, domain, policy, sign, key, dataFn } } = config
 
+    return {
+      action: domain,
+      data: {
+        OSSAccessKeyId: accessKeyId,
+        policy,
+        Signature: sign,
+        key,
+        success_action_status: '201'
+      },
+      onResult: (res) => {
+        return /<Location>(.*)<\/Location>/.exec(res)[1]
+      },
+      onUrl: onChange,
+      dataFn
+    }
   }
 
-  // 获取又拍云上传配置
+  // get upyun upload props
   const getUpyunUploadProps = () => {
 
   }
@@ -258,7 +275,7 @@ export default class LayoutComponent extends Component {
   addImageFromState = () => {
     let { src, height, width, alt } = this.state
     const { onChange } = this.props
-    //onChange('http://user.qn.cly888.cn/album/259987403220062208.png', 'auto', 'auto', '')
+    
     if (!isNaN(height)) {
       height += 'px'
     }

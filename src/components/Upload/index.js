@@ -12,7 +12,8 @@ export default class Upload extends Component {
       fileList: props.fileList || props.defaultFileList || [],
       dragState: 'drop',
       status: 'normal',
-      data: {}
+      data: {},
+      action: undefined
     }
   }
 
@@ -147,7 +148,7 @@ export default class Upload extends Component {
       return false
     }
 
-    const { maxSize, dataFn } = this.props
+    const { maxSize, dataFn, action } = this.props
     if (maxSize > 0 && file.size > maxSize) {
       this.onError('文件大小超限', null, file)
       return false
@@ -158,15 +159,23 @@ export default class Upload extends Component {
       return new Promise((resolve, reject) => {
         const dfp = dataFn(file)
         dfp.then(d => {
+          const state = {}
+          if (!action) {
+            state.action = d.domain
+          }
+
           if (d.domain) {
             d['x:domain'] = d.domain
             delete d.domain
           }
+
           if (d.style) {
             d['x:style'] = d.style
             delete d.style
           }
-          this.setState({ data: d })
+          state.data = d
+
+          this.setState(state)
           resolve()
         }).catch(e => {
           reject()
@@ -223,7 +232,7 @@ export default class Upload extends Component {
 
   render () {
 
-    const { fileList, dragState, data } = this.state
+    const { fileList, dragState, data, action } = this.state
 
     const dragCls = classNames('lay-editor-upload-drag', {
       'lay-editor-upload-drag-hover': dragState === 'dragover'
@@ -239,7 +248,8 @@ export default class Upload extends Component {
       data: {
         ...this.props.data,
         ...data
-      }
+      },
+      action: this.props.action || action
     }
 
     const { accept, maxSize, locale } = this.props
