@@ -1,4 +1,4 @@
-webpackJsonp([0],{
+webpackJsonp([1],{
 
 /***/ 105:
 /***/ (function(module, exports, __webpack_require__) {
@@ -610,71 +610,15 @@ $export($export.S, 'Promise', { 'try': function (callbackfn) {
 
 /***/ }),
 
-/***/ 44:
+/***/ 224:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-
-// 25.4.1.5 NewPromiseCapability(C)
-var aFunction = __webpack_require__(41);
-
-function PromiseCapability(C) {
-  var resolve, reject;
-  this.promise = new C(function ($$resolve, $$reject) {
-    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
-    resolve = $$resolve;
-    reject = $$reject;
-  });
-  this.resolve = aFunction(resolve);
-  this.reject = aFunction(reject);
-}
-
-module.exports.f = function (C) {
-  return new PromiseCapability(C);
-};
+module.exports = __webpack_require__(225);
 
 
 /***/ }),
 
-/***/ 56:
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(36);
-var TAG = __webpack_require__(12)('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-
-/***/ 567:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(568);
-
-
-/***/ }),
-
-/***/ 568:
+/***/ 225:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -732,11 +676,15 @@ var Test = function (_Component) {
 
               case 2:
                 return _context.abrupt('return', {
-                  domain: '',
+                  domain: 'DOMAIN FROM SERVER',
                   // will override 'test.jpg'
-                  // key: file.name,
-                  key: 'KEY FROM SERVER',
-                  token: 'TOKEN FROM SERVER'
+                  key: file.name,
+                  // aliyun accessKeyId
+                  accessKeyId: 'ACCESS KEY ID FROM SERVER',
+                  // signature
+                  sign: 'SIGN FROM SERVER',
+                  // policy
+                  policy: 'POLICY FROM SERVER'
                 });
 
               case 3:
@@ -757,25 +705,25 @@ var Test = function (_Component) {
     var toolbar = {
       image: {
         // default is base64
-        upto: 'qiniu',
+        upto: 'aliyun',
         // input accept attribute
         accept: 'image/gif,image/jpeg,image/jpg,image/png',
         // max file size, numeric bytes, m(MB), k(KB)
         maxSize: 2048 * 1024 || '2m' || '2048k',
         // upload config
-        qiniu: {
-          // (required) qiniu upload token
-          token: '',
-          // (required) qiniu bucket domain
-          domain: 'http://YOUR QINIU BUCKET DOMAIN',
-          // (optional) qiniu bucket area, see: https://developer.qiniu.com/kodo/manual/1671/region-endpoint
-          area: 'z0',
-          // (optional) qiniu upload key
+        aliyun: {
+          // (required) oss domain
+          domain: '',
+          // (required) aliyun accessKeyId
+          accessKeyId: '',
+          // (required) oss upload policy
+          policy: '',
+          // (required) oss upload sign
+          sign: '',
+          // (required) aliyun upload key
           key: 'test.jpg',
-          // (optional) qiniu style suffix
-          style: '!small',
           // (optional) a Promise or a async/await function which you can used to get uplaod data params from server
-          // if you set dataFn and returned 'token' or 'domain' from dataFn, then 'token' or 'domain' in qiniu could be optional
+          // if you set dataFn and returned required params from dataFn, then config in aliyun could be optional
           dataFn: this.getParamFromServer
         }
       }
@@ -795,6 +743,62 @@ var Test = function (_Component) {
 }(__WEBPACK_IMPORTED_MODULE_5_react__["Component"]);
 
 __WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(Test, null), document.getElementById('__react-content'));
+
+/***/ }),
+
+/***/ 44:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// 25.4.1.5 NewPromiseCapability(C)
+var aFunction = __webpack_require__(41);
+
+function PromiseCapability(C) {
+  var resolve, reject;
+  this.promise = new C(function ($$resolve, $$reject) {
+    if (resolve !== undefined || reject !== undefined) throw TypeError('Bad Promise constructor');
+    resolve = $$resolve;
+    reject = $$reject;
+  });
+  this.resolve = aFunction(resolve);
+  this.reject = aFunction(reject);
+}
+
+module.exports.f = function (C) {
+  return new PromiseCapability(C);
+};
+
+
+/***/ }),
+
+/***/ 56:
+/***/ (function(module, exports, __webpack_require__) {
+
+// getting tag from 19.1.3.6 Object.prototype.toString()
+var cof = __webpack_require__(36);
+var TAG = __webpack_require__(12)('toStringTag');
+// ES3 wrong here
+var ARG = cof(function () { return arguments; }()) == 'Arguments';
+
+// fallback for IE11 Script Access Denied error
+var tryGet = function (it, key) {
+  try {
+    return it[key];
+  } catch (e) { /* empty */ }
+};
+
+module.exports = function (it) {
+  var O, T, B;
+  return it === undefined ? 'Undefined' : it === null ? 'Null'
+    // @@toStringTag case
+    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
+    // builtinTag case
+    : ARG ? cof(O)
+    // ES3 arguments fallback
+    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
+};
+
 
 /***/ }),
 
@@ -1788,5 +1792,5 @@ module.exports = __webpack_require__(13).Promise;
 
 /***/ })
 
-},[567]);
-//# sourceMappingURL=qiniu.js.map
+},[224]);
+//# sourceMappingURL=aliyun.js.map

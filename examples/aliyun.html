@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>locale.js - example - lay-editor@0.0.6</title>
+  <title>aliyun.js - example - lay-editor@0.0.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -271,50 +271,79 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 
     <div class="highlight"><pre><code language="js"><span class="hljs-keyword">import</span> React, { Component } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
 <span class="hljs-keyword">import</span> ReactDOM <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>
-<span class="hljs-keyword">import</span> { LayEditor } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>
+<span class="hljs-keyword">import</span> { LayEditor, valueToHtml } <span class="hljs-keyword">from</span> <span class="hljs-string">'../src/index'</span>
 
 class Test extends Component {
   state = {
-    // EditorState
-    value: undefined,
-    locale: <span class="hljs-string">'en-US'</span>,
-  }
-
-  onChangeLocale(locale) {
-    this.setState({ locale })
+    value: undefined
   }
 
   onChange = (value) =&gt; {
     this.setState({ value })
   }
 
-  render () {
-    const { value, locale } = this.state
+  getParamFromServer = async (file, callback) =&gt; {
+    await console.log(<span class="hljs-string">'you can request params from server'</span>)
 
-    const placeholder = {
-      <span class="hljs-string">'zh-CN'</span>: <span class="hljs-string">'写点什么吧...'</span>,
-      <span class="hljs-string">'en-US'</span>: <span class="hljs-string">'write something...'</span>
+    // if you throw a exception upload will stopped and show the error
+    // throw <span class="hljs-string">'error'</span>
+
+    // upload will be started after function returned
+    // returned param will mix the params you set in aliyun config
+    return {
+      domain: <span class="hljs-string">'DOMAIN FROM SERVER'</span>,
+      // will override <span class="hljs-string">'test.jpg'</span>
+      key: file.name,
+      // aliyun accessKeyId
+      accessKeyId: <span class="hljs-string">'ACCESS KEY ID FROM SERVER'</span>,
+      // signature
+      sign: <span class="hljs-string">'SIGN FROM SERVER'</span>,
+      // policy
+      policy: <span class="hljs-string">'POLICY FROM SERVER'</span>,
     }
+  }
 
+  render () {
+    const toolbar = {
+      image: {
+        // default is base64
+        upto: <span class="hljs-string">'aliyun'</span>,
+        // input accept attribute
+        accept: <span class="hljs-string">'image/gif,image/jpeg,image/jpg,image/png'</span>,
+        // max file size, numeric bytes, m(MB), k(KB)
+        maxSize: 2048 * 1024 || <span class="hljs-string">'2m'</span> || <span class="hljs-string">'2048k'</span>,
+        // upload config
+        aliyun: {
+          // (required) oss domain
+          domain: <span class="hljs-string">''</span>,
+          // (required) aliyun accessKeyId
+          accessKeyId: <span class="hljs-string">''</span>,
+          // (required) oss upload policy
+          policy: <span class="hljs-string">''</span>,
+          // (required) oss upload sign
+          sign: <span class="hljs-string">''</span>,
+          // (required) aliyun upload key
+          key: <span class="hljs-string">'test.jpg'</span>,
+          // (optional) a Promise or a async/await function which you can used to get uplaod data params <span class="hljs-keyword">from</span> server
+          // if you set dataFn and returned required params <span class="hljs-keyword">from</span> dataFn, then config in aliyun could be optional
+          dataFn: this.getParamFromServer
+        },
+      },
+    }
     return (
       &lt;div style={{ padding: 20 }}&gt;
         &lt;LayEditor
-          value={value}
+          toolbar={toolbar}
+          value={this.state.value}
           onChange={this.onChange}
-          locale={locale}
-          placeholder={placeholder[locale]} /&gt;
-        &lt;p&gt;
-          &lt;button onClick={this.onChangeLocale.bind(this, <span class="hljs-string">'zh-CN'</span>)}&gt;简体中文&lt;/button&gt;
-          &amp;nbsp;&amp;nbsp;
-          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onChangeLocale.bind(this,</span> '<span class="hljs-attribute">en-US</span>')}&gt;</span>English<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>
+          placeholder=<span class="hljs-string">"write something..."</span> /&gt;
+      &lt;/div&gt;
+    )
   }
 }
 
-ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Test</span> /&gt;</span>, document.getElementById('__react-content'))
-</span></code></pre></div>
+ReactDOM.render(&lt;Test /&gt;, document.getElementById(<span class="hljs-string">'__react-content'</span>))
+</code></pre></div>
   </div>
   <a href="http://github.com/LayGit/lay-editor">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -324,7 +353,7 @@ ReactDOM.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="../common.js?nowrap"></script>
-  <script src="locale.js?nowrap"></script>
+  <script src="aliyun.js?nowrap"></script>
 </body>
 
 </html>
