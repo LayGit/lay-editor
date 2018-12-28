@@ -4,6 +4,15 @@
 
 [![NPM](https://img.shields.io/npm/v/lay-editor.svg)](https://www.npmjs.com/package/lay-editor) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Features
+
+ - Support qiniu upload
+ - Support aliyun oss upload
+ - Support custom server upload
+ - i18n zh-CN / en-US
+ - Popular functions of editor
+ - Less is more
+
 ## Install
 
 ```bash
