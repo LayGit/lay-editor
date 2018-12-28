@@ -10,7 +10,9 @@ const getImageComponent = config => class Image extends Component {
   getAlignmentPanel = (alignment) => {
     const { locale } = config
     return (
-      <div className={classNames('lay-editor-alignment-popup')}>
+      <div className={classNames('lay-editor-alignment-popup', {
+          'lay-editor-alignment-popup-right': alignment === 'right'
+        })}>
         <span
           onClick={this.setEntityAlignmentLeft}
           className={alignment === 'left' ? 'lay-editor-alignment-popup-active' : null}>{locale.format('image.align.left')}</span>

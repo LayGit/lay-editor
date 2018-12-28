@@ -9,6 +9,27 @@ import Tabs, { TabPane } from 'rc-tabs'
 import TabBar from 'rc-tabs/lib/TabBar'
 import TabContent from 'rc-tabs/lib/TabContent'
 
+const QINIU_SERVER = {
+  'z0': '//upload.qiniup.com',
+  'z1': '//upload-z1.qiniup.com',
+  'z2': '//upload-z2.qiniup.com',
+  'na0': '//upload-na0.qiniup.com',
+  'as0': '//upload-as0.qiniup.com'
+}
+
+const pathJoin = (p1, p2) => {
+  if (p1[p1-1] === '/') {
+    if (p2[0] === '/') {
+      p2 = p2.substr(1)
+    }
+  } else {
+    if (p2[0] !== '/') {
+      p2 = '/' + p2
+    }
+  }
+  return p1 + p2
+}
+
 const UploadTab = (props) => {
 
   const getMaxSize = () => {
@@ -31,7 +52,6 @@ const UploadTab = (props) => {
   // 获取 base64 的上传配置
   const getBase64UploadProps = () => {
     const beforeUpload = (file) => {
-      // 大小限制
       const reader = new FileReader()
       let imageUrl64 = reader.readAsDataURL(file)
       reader.onload = () => {
@@ -61,7 +81,32 @@ const UploadTab = (props) => {
 
   // 获取七牛上传配置
   const getQiniuUploadProps = () => {
+    const { onChange, config } = props
+    const { qiniu: { area, key, token, domain, style = '', dataFn } } = config
 
+    return {
+      action: area ? QINIU_SERVER[area] : QINIU_SERVER['z0'],
+      data: {
+        key,
+        token,
+      },
+      onResult: (res) => {
+        let url = pathJoin(domain, res.key)
+        if (res['x:domain']) {
+          url = pathJoin(res['x:domain'], res.key)
+        }
+
+        if (res['x:style']) {
+          url += res['x:style']
+        } else {
+          url += style
+        }
+
+        return url
+      },
+      onUrl: onChange,
+      dataFn
+    }
   }
 
   // 获取阿里云上传配置
@@ -74,7 +119,8 @@ const UploadTab = (props) => {
 
   }
 
-  const getUploadProps = ({ upto, accept }) => {
+  const getUploadProps = () => {
+    const { upto, accept } = props.config
     let uploadProps
     switch (upto) {
       case 'server':
@@ -115,6 +161,8 @@ const UploadTab = (props) => {
     locale,
   } = props
 
+  const uploadProps = getUploadProps()
+
   return src ? (
     <div className="lay-editor-image-preview">
       <img src={src} />
@@ -125,7 +173,7 @@ const UploadTab = (props) => {
       </div>
     </div>
   ) : (
-    <Upload {...getUploadProps(config)} locale={locale} />
+    <Upload {...uploadProps} locale={locale} />
   )
 }
 

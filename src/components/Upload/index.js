@@ -11,7 +11,8 @@ export default class Upload extends Component {
     this.state = {
       fileList: props.fileList || props.defaultFileList || [],
       dragState: 'drop',
-      status: 'normal'
+      status: 'normal',
+      data: {}
     }
   }
 
@@ -146,14 +147,36 @@ export default class Upload extends Component {
       return false
     }
 
-    if (!this.props.beforeUpload) {
-      return true
-    }
-
-    const { maxSize, upto } = this.props
+    const { maxSize, dataFn } = this.props
     if (maxSize > 0 && file.size > maxSize) {
       this.onError('文件大小超限', null, file)
       return false
+    }
+
+    // if has dataFn
+    if (dataFn && typeof dataFn === 'function') {
+      return new Promise((resolve, reject) => {
+        const dfp = dataFn(file)
+        dfp.then(d => {
+          if (d.domain) {
+            d['x:domain'] = d.domain
+            delete d.domain
+          }
+          if (d.style) {
+            d['x:style'] = d.style
+            delete d.style
+          }
+          this.setState({ data: d })
+          resolve()
+        }).catch(e => {
+          reject()
+          this.onError(e, null, file)
+        })
+      })
+    }
+
+    if (!this.props.beforeUpload) {
+      return true
     }
 
     const result = this.props.beforeUpload(file, fileList)
@@ -199,8 +222,11 @@ export default class Upload extends Component {
   }
 
   render () {
+
+    const { fileList, dragState, data } = this.state
+
     const dragCls = classNames('lay-editor-upload-drag', {
-      'lay-editor-upload-drag-hover': this.state.dragState === 'dragover'
+      'lay-editor-upload-drag-hover': dragState === 'dragover'
     })
 
     const uploadProps = {
@@ -209,7 +235,11 @@ export default class Upload extends Component {
       onProgress: this.onProgress,
       onSuccess: this.onSuccess,
       ...this.props,
-      beforeUpload: this.beforeUpload
+      beforeUpload: this.beforeUpload,
+      data: {
+        ...this.props.data,
+        ...data
+      }
     }
 
     const { accept, maxSize, locale } = this.props
@@ -217,8 +247,11 @@ export default class Upload extends Component {
     let acceptFmt = accept ? accept.replace(/image\//g, '') : locale.format('toolbar.image.upload.drag.hint.acceptAll')
     let maxSizeLimit = maxSize > 0 ? `${locale.format('toolbar.image.upload.drag.hint.size.limit')} ${maxSize / 1024 / 1024}m` : locale.format('toolbar.image.upload.drag.hint.size.infinite')
 
-    const { fileList } = this.state
     const file = fileList.length > 0 ? fileList[0] : {}
+    let error = file.error
+    if (typeof error === 'object') {
+      error = JSON.stringify(error)
+    }
 
     return (
       <span className="lay-editor-upload">
@@ -239,7 +272,7 @@ export default class Upload extends Component {
               <p className="lay-editor-upload-text">{locale.format('toolbar.image.upload.drag.title')}</p>
               <p className="lay-editor-upload-hint">{`${locale.format('toolbar.image.upload.drag.hint.support')} ${acceptFmt}，${maxSizeLimit}`}</p>
               {file.status === 'error' && (
-                <p className="lay-editor-upload-error">{locale.format('toolbar.image.upload.failed')}:{file.error}</p>
+                <p className="lay-editor-upload-error">{locale.format('toolbar.image.upload.failed')}:{error}</p>
               )}
             </div>
           </RcUpload>

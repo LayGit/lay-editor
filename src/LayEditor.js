@@ -117,7 +117,7 @@ class LayEditor extends Component {
     const newState = {}
     // 判断 toolbar 是否改变
     if (this.props.toolbar !== nextProps.toolbar) {
-      const toolbar = mergeRecursive(defaultToolbar, toolbar)
+      const toolbar = mergeRecursive(defaultToolbar, nextProps.toolbar)
       newState.toolbar = toolbar
     }
 

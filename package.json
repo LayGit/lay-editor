@@ -1,6 +1,6 @@
 {
   "name": "lay-editor",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "React editor based on draftjs",
   "keywords": [
     "react",
@@ -39,7 +39,7 @@
   "scripts": {
     "build": "rc-tools run build",
     "gh-pages": "rc-tools run gh-pages",
-    "start": "rc-tools run server",
+    "start": "rc-tools run server --babel-runtime",
     "compile": "rc-tools run compile --babel-runtime",
     "pub": "rc-tools run pub --babel-runtime",
     "lint": "rc-tools run lint",
@@ -56,13 +56,12 @@
     "typescript": "^2.8.3"
   },
   "dependencies": {
-    "babel-runtime": "6.x",
     "classnames": "2.x",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "draftjs-utils": "^0.9.4",
     "html-to-draftjs": "^1.4.0",
-    "immutable": "^4.0.0-rc.12",
+    "immutable": "3.x",
     "lodash": "^4.17.11",
     "rc-dialog": "^7.3.0",
     "rc-dropdown": "^2.3.0",

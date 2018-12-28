@@ -89,7 +89,15 @@ export default {
       data: {},
       resultFn: (res) => res,
       withCredentials: false,
-    }
+    },
+    qiniu: {
+      area: 'z0',
+      key: '',
+      token: '',
+      domain: '',
+      style: '',
+      dataFn: undefined,
+    },
   },
   remove: {
     icon: 'icon-xiangpica',
