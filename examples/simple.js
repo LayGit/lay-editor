@@ -1,19 +1,19 @@
 webpackJsonp([2],{
 
-/***/ 569:
+/***/ 572:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(570);
+module.exports = __webpack_require__(573);
 
 
 /***/ }),
 
-/***/ 570:
+/***/ 573:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_classCallCheck__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_possibleConstructorReturn__);
@@ -79,6 +79,7 @@ var Test = function (_Component) {
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_5__src_index__["a" /* LayEditor */], {
         value: value,
         onChange: this.onChange,
+        height: 200,
         placeholder: 'write something...' }),
       __WEBPACK_IMPORTED_MODULE_3_react___default.a.createElement(
         'p',
@@ -139,5 +140,5 @@ __WEBPACK_IMPORTED_MODULE_4_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ })
 
-},[569]);
+},[572]);
 //# sourceMappingURL=simple.js.map

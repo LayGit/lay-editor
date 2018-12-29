@@ -1087,6 +1087,24 @@
   padding: 10px 10px;
   font-family: Inconsolata,Menlo,Consolas,monospace;
 }
+.lay-editor-wrapper-fs {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-flow: column;
+  -ms-flex-flow: column;
+  flex-flow: column;
+}
+.lay-editor-scroll-disabled {
+  overflow: hidden;
+}
 .lay-editor-toolbar-wrapper {
   background: #f5f5f5;
   padding: 5px 10px;
@@ -1105,6 +1123,12 @@
 }
 .lay-editor-content-wrapper {
   padding: 4px 11px;
+  overflow: auto;
+}
+.lay-editor-wrapper-fs .lay-editor-content-wrapper {
+  height: auto !important;
+  -ms-flex: 1;
+      flex: 1;
 }
 .lay-editor-icon {
   display: inline-block;
