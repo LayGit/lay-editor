@@ -43,6 +43,7 @@ class Test extends Component {
         <LayEditor
           value={value}
           onChange={this.onChange}
+          height={200}
           placeholder="write something..." />
         <p>
           <button onClick={this.onHtmlToValue}>html to value</button>

@@ -38,4 +38,6 @@ export default {
   'toolbar.remove.title': 'Remove',
   'toolbar.history.undo': 'Undo',
   'toolbar.history.redo': 'Redo',
+  'toolbar.fullscreen.on': 'Full Screen',
+  'toolbar.fullscreen.off': 'Exit Full Screen',
 }

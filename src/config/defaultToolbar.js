@@ -8,6 +8,7 @@ export default {
     "image",
     "remove",
     "history",
+    "fullScreen",
   ],
   inline: {
     options: [
@@ -115,5 +116,9 @@ export default {
     options: ["undo", "redo"],
     undo: { icon: 'icon-chexiao', title: 'toolbar.history.undo' },
     redo: { icon: 'icon-chongzuo', title: 'toolbar.history.redo' }
+  },
+  fullScreen: {
+    on: { icon: 'icon-fullscreen', title: 'toolbar.fullscreen.on' },
+    off: { icon: 'icon-fullscreen-exit', title: 'toolbar.fullscreen.off' }
   }
 };

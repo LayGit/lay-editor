@@ -6,6 +6,7 @@ import textAlign from './TextAlign'
 import image from './Image'
 import remove from './Remove'
 import history from './History'
+import fullScreen from './FullScreen'
 
 export default {
   inline,
@@ -15,5 +16,6 @@ export default {
   textAlign,
   image,
   remove,
-  history
+  history,
+  fullScreen,
 }

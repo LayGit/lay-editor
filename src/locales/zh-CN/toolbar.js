@@ -38,4 +38,6 @@ export default {
   'toolbar.remove.title': '清除样式',
   'toolbar.history.undo': '撤销',
   'toolbar.history.redo': '重做',
+  'toolbar.fullscreen.on': '全屏',
+  'toolbar.fullscreen.off': '取消全屏',
 }

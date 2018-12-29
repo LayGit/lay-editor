@@ -20,6 +20,7 @@ import Icon from './components/Icon'
 import defaultToolbar from './config/defaultToolbar'
 import { mergeRecursive } from './utils/toolbar'
 import { handlePastedText } from "./utils/handlePaste"
+import { toggleClass } from './utils/dom'
 import Controls from "./controls"
 import { hasProperty } from './utils/common'
 import FocusHandler from './events/focus'
@@ -72,7 +73,8 @@ class LayEditor extends Component {
     mention: PropTypes.object,
     hashtag: PropTypes.object,
     placeholder: PropTypes.string,
-    locale: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    locale: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    height: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   }
 
   constructor(props) {
@@ -84,6 +86,7 @@ class LayEditor extends Component {
       editorFocused: false,
       toolbar,
       locale,
+      fullScreen: false,
     }
     const wrapperId = props.wrapperId ? props.wrapperId : Math.floor(Math.random() * 10000)
     this.wrapperId = `lay-editor-${wrapperId}`
@@ -360,8 +363,16 @@ class LayEditor extends Component {
     return map
   }
 
+  toggleFullScreen = () => {
+    const { fullScreen } = this.state
+    if (window.document && window.document.body) {
+      toggleClass(window.document.body, 'lay-editor-scroll-disabled')
+    }
+    this.setState({ fullScreen: !fullScreen })
+  }
+
   render () {
-    const { editorState, editorFocused, toolbar, locale } = this.state
+    const { editorState, editorFocused, toolbar, locale, fullScreen } = this.state
     const {
       toolbarHidden,
       toolbarToggleEnable,
@@ -372,10 +383,13 @@ class LayEditor extends Component {
       editorClassName,
       editorStyle,
       placeholder,
+      height,
     } = this.props
     const controlProps = {
       editorState,
       onChange: this.onChange,
+      fullScreen,
+      toggleFullScreen: this.toggleFullScreen,
     }
     // toolbarToggleEnable = true 才会进行切换
     const toolbarVisible = toolbarToggleEnable ? (editorFocused || this.focusHandler.isInputFocused()) : true
@@ -383,7 +397,9 @@ class LayEditor extends Component {
     return (
       <div
         id={this.wrapperId}
-        className={classNames(wrapperClassName, 'lay-editor-wrapper')}
+        className={classNames(wrapperClassName, 'lay-editor-wrapper', {
+          'lay-editor-wrapper-fs': fullScreen
+        })}
         style={wrapperStyle}>
         {toolbarVisible && (
           <div
@@ -408,7 +424,7 @@ class LayEditor extends Component {
         <div
           ref={this.setWrapperReference}
           className={classNames(editorClassName, 'lay-editor-content-wrapper')}
-          style={editorStyle}
+          style={{ height: height, ...editorStyle}}
           onClick={this.focusEditor}
           onFocus={this.onEditorFocus}
           onBlur={this.onEditorBlur}

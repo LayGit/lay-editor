@@ -52,6 +52,27 @@
       padding: 10px 10px;
       font-family: Inconsolata,Menlo,Consolas,monospace;
     }
+
+    &-fs {
+      position: fixed;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 999;
+      display: flex;
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-flow: column;
+      -ms-flex-flow: column;
+      flex-flow: column;
+    }
+  }
+
+  &-scroll-disabled {
+    overflow: hidden;
   }
 
   &-toolbar-wrapper {
@@ -71,8 +92,13 @@
 
   &-content-wrapper {
     padding: 4px 11px;
+    overflow: auto;
   }
 
+  &-wrapper-fs &-content-wrapper {
+    height: auto !important;
+    flex: 1;
+  }
 
   &-icon {
     display: inline-block;
