@@ -1,6 +1,6 @@
 {
   "name": "lay-editor",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "React editor based on draftjs",
   "keywords": [
     "react",
@@ -62,6 +62,7 @@
     "draftjs-utils": "^0.9.4",
     "html-to-draftjs": "^1.4.0",
     "immutable": "3.x",
+    "linkify-it": "^2.1.0",
     "lodash": "^4.17.11",
     "rc-dialog": "^7.3.0",
     "rc-dropdown": "^2.3.0",

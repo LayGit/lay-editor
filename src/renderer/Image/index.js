@@ -43,7 +43,7 @@ const getImageComponent = config => class Image extends Component {
     const entityKey = block.getEntityAt(0)
     contentState.mergeEntityData(entityKey, { alignment })
     config.onChange(EditorState.push(config.getEditorState(), contentState, 'change-block-data'))
-    // 无意义 只是为了触发 render
+    // only for rerender
     this.setState({ refresh: true })
   }
 
@@ -58,7 +58,7 @@ const getImageComponent = config => class Image extends Component {
     const entity = contentState.getEntity(block.getEntityAt(0))
     const { src, alignment = 'left', height, width, alt } = entity.getData()
 
-    // 设置对齐方式的弹窗
+    // alignment panel
     const alignmentPanel = !isReadOnly() && hovered && isImageAlignmentEnabled() ? this.getAlignmentPanel(alignment) : null
     return (
       <span

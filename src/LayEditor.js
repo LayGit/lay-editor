@@ -26,9 +26,10 @@ import { hasProperty } from './utils/common'
 import FocusHandler from './events/focus'
 import KeyDownHandler from "./events/keydown"
 import SuggestionHandler from './events/suggestions'
-import ModalHandler from './events/modals'
+import getLinkDecorator from './decorators/Link'
 import getBlockRenderFunc from './renderer'
 import locales from './locales'
+import { is } from 'immutable'
 
 const getLocale = (locale) => {
   let newLocale
@@ -90,7 +91,6 @@ class LayEditor extends Component {
     }
     const wrapperId = props.wrapperId ? props.wrapperId : Math.floor(Math.random() * 10000)
     this.wrapperId = `lay-editor-${wrapperId}`
-    this.modalHandler = new ModalHandler()
     this.focusHandler = new FocusHandler()
     this.blockRendererFn = getBlockRenderFunc(
       {
@@ -110,10 +110,6 @@ class LayEditor extends Component {
     const editorState = this.createEditorState(this.compositeDecorator)
     extractInlineStyle(editorState)
     this.setState({ editorState })
-  }
-
-  componentDidMount() {
-    this.modalHandler.init(this.wrapperId)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -152,6 +148,7 @@ class LayEditor extends Component {
     if (nextProps.value !== this.props.value || nextProps.content !== this.props.content) {
       extractInlineStyle(newState.editorState)
     }
+
     this.setState(newState)
     this.customStyleMap = getCustomStyleMap()
   }
@@ -168,12 +165,11 @@ class LayEditor extends Component {
   getSuggestions = () => this.props.metion && this.props.mention.suggestions
 
   getCompositeDecorator = () => {
-    // const decorators = [
-    //   ...this.props.customDecorators,
-    //   getLinkDecorator({
-    //     showOpenOptionOnHover: this.state.toolbar.link.showOpenOptionOnHover
-    //   })
-    // ]
+    const decorators = [
+      getLinkDecorator({
+        showOpenOptionOnHover: this.state.toolbar.link.showOpenOptionOnHover
+      })
+    ]
     // if (this.props.mention) {
     //   decorators.push(
     //     ...getMentionDecorators({
@@ -182,14 +178,12 @@ class LayEditor extends Component {
     //       getEditorState: this.getEditorState,
     //       getSuggestions: this.getSuggestions,
     //       getWrapperRef: this.getWrapperRef,
-    //       modalHandler: this.modalHandler
     //     })
     //   )
     // }
     // if (this.props.hashtag) {
     //   decorators.push(getHashtagDecorator(this.props.hashtag))
     // }
-    const decorators = []
     return new CompositeDecorator(decorators)
   }
 
@@ -230,6 +224,18 @@ class LayEditor extends Component {
     if (!editorState) {
       editorState = EditorState.createEmpty(compositeDecorator)
     }
+    return editorState
+  }
+
+  changeEditorState = (contentState) => {
+    const newContentState = convertFromRaw(contentState)
+    let { editorState } = this.state
+    editorState = EditorState.push(
+      editorState,
+      newContentState,
+      "insert-characters"
+    )
+    editorState = EditorState.moveSelectionToEnd(editorState)
     return editorState
   }
 
@@ -391,7 +397,7 @@ class LayEditor extends Component {
       fullScreen,
       toggleFullScreen: this.toggleFullScreen,
     }
-    // toolbarToggleEnable = true 才会进行切换
+    // toolbarToggleEnable == true to enable toolbar visible toggle
     const toolbarVisible = toolbarToggleEnable ? (editorFocused || this.focusHandler.isInputFocused()) : true
 
     return (

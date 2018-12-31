@@ -5,6 +5,7 @@ export default {
     "fontSize",
     "list",
     "textAlign",
+    "link",
     "image",
     "remove",
     "history",
@@ -70,6 +71,14 @@ export default {
     center: { icon: 'icon-juzhongduiqi', title: 'toolbar.textAlign.center' },
     right: { icon: 'icon-juyouduiqi', title: 'toolbar.textAlign.right' },
     justify: { icon: 'icon-liangduanduiqi', title: 'toolbar.textAlign.justify' }
+  },
+  link: {
+    options: [
+      "link",
+      "unlink"
+    ],
+    link: { icon: 'icon-chaolianjie', title: 'toolbar.link.link' },
+    unlink: { icon: 'icon-qingchulianjie', title: 'toolbar.link.unlink' }
   },
   image: {
     icon: 'icon-shangchuantupian',
