@@ -1,25 +1,25 @@
 webpackJsonp([0],{
 
-/***/ 105:
+/***/ 106:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var LIBRARY = __webpack_require__(48);
 var global = __webpack_require__(11);
-var ctx = __webpack_require__(35);
+var ctx = __webpack_require__(36);
 var classof = __webpack_require__(56);
-var $export = __webpack_require__(21);
+var $export = __webpack_require__(23);
 var isObject = __webpack_require__(27);
 var aFunction = __webpack_require__(41);
-var anInstance = __webpack_require__(106);
-var forOf = __webpack_require__(107);
+var anInstance = __webpack_require__(107);
+var forOf = __webpack_require__(108);
 var speciesConstructor = __webpack_require__(57);
 var task = __webpack_require__(58).set;
-var microtask = __webpack_require__(112)();
+var microtask = __webpack_require__(113)();
 var newPromiseCapabilityModule = __webpack_require__(44);
 var perform = __webpack_require__(59);
-var userAgent = __webpack_require__(113);
+var userAgent = __webpack_require__(114);
 var promiseResolve = __webpack_require__(60);
 var PROMISE = 'Promise';
 var TypeError = global.TypeError;
@@ -195,7 +195,7 @@ if (!USE_NATIVE) {
     this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
     this._n = false;          // <- notify
   };
-  Internal.prototype = __webpack_require__(114)($Promise.prototype, {
+  Internal.prototype = __webpack_require__(115)($Promise.prototype, {
     // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
     then: function then(onFulfilled, onRejected) {
       var reaction = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -227,7 +227,7 @@ if (!USE_NATIVE) {
 
 $export($export.G + $export.W + $export.F * !USE_NATIVE, { Promise: $Promise });
 __webpack_require__(55)($Promise, PROMISE);
-__webpack_require__(115)(PROMISE);
+__webpack_require__(116)(PROMISE);
 Wrapper = __webpack_require__(13)[PROMISE];
 
 // statics
@@ -246,7 +246,7 @@ $export($export.S + $export.F * (LIBRARY || !USE_NATIVE), PROMISE, {
     return promiseResolve(LIBRARY && this === Wrapper ? $Promise : this, x);
   }
 });
-$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(116)(function (iter) {
+$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(117)(function (iter) {
   $Promise.all(iter)['catch'](empty);
 })), PROMISE, {
   // 25.4.4.1 Promise.all(iterable)
@@ -294,7 +294,7 @@ $export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(116)(functio
 
 /***/ }),
 
-/***/ 106:
+/***/ 107:
 /***/ (function(module, exports) {
 
 module.exports = function (it, Constructor, name, forbiddenField) {
@@ -306,15 +306,15 @@ module.exports = function (it, Constructor, name, forbiddenField) {
 
 /***/ }),
 
-/***/ 107:
+/***/ 108:
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx = __webpack_require__(35);
-var call = __webpack_require__(108);
-var isArrayIter = __webpack_require__(109);
+var ctx = __webpack_require__(36);
+var call = __webpack_require__(109);
+var isArrayIter = __webpack_require__(110);
 var anObject = __webpack_require__(19);
-var toLength = __webpack_require__(99);
-var getIterFn = __webpack_require__(110);
+var toLength = __webpack_require__(100);
+var getIterFn = __webpack_require__(111);
 var BREAK = {};
 var RETURN = {};
 var exports = module.exports = function (iterable, entries, fn, that, ITERATOR) {
@@ -338,7 +338,7 @@ exports.RETURN = RETURN;
 
 /***/ }),
 
-/***/ 108:
+/***/ 109:
 /***/ (function(module, exports, __webpack_require__) {
 
 // call something on iterator step with safe closing on error
@@ -357,7 +357,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 /***/ }),
 
-/***/ 109:
+/***/ 110:
 /***/ (function(module, exports, __webpack_require__) {
 
 // check on default Array iterator
@@ -372,7 +372,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 110:
+/***/ 111:
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(56);
@@ -387,7 +387,7 @@ module.exports = __webpack_require__(13).getIteratorMethod = function (it) {
 
 /***/ }),
 
-/***/ 111:
+/***/ 112:
 /***/ (function(module, exports) {
 
 // fast apply, http://jsperf.lnkit.com/fast-apply/5
@@ -410,7 +410,7 @@ module.exports = function (fn, args, that) {
 
 /***/ }),
 
-/***/ 112:
+/***/ 113:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(11);
@@ -418,7 +418,7 @@ var macrotask = __webpack_require__(58).set;
 var Observer = global.MutationObserver || global.WebKitMutationObserver;
 var process = global.process;
 var Promise = global.Promise;
-var isNode = __webpack_require__(37)(process) == 'process';
+var isNode = __webpack_require__(38)(process) == 'process';
 
 module.exports = function () {
   var head, last, notify;
@@ -486,7 +486,7 @@ module.exports = function () {
 
 /***/ }),
 
-/***/ 113:
+/***/ 114:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(11);
@@ -497,10 +497,10 @@ module.exports = navigator && navigator.userAgent || '';
 
 /***/ }),
 
-/***/ 114:
+/***/ 115:
 /***/ (function(module, exports, __webpack_require__) {
 
-var hide = __webpack_require__(36);
+var hide = __webpack_require__(37);
 module.exports = function (target, src, safe) {
   for (var key in src) {
     if (safe && target[key]) target[key] = src[key];
@@ -511,15 +511,15 @@ module.exports = function (target, src, safe) {
 
 /***/ }),
 
-/***/ 115:
+/***/ 116:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var global = __webpack_require__(11);
 var core = __webpack_require__(13);
-var dP = __webpack_require__(29);
-var DESCRIPTORS = __webpack_require__(30);
+var dP = __webpack_require__(30);
+var DESCRIPTORS = __webpack_require__(31);
 var SPECIES = __webpack_require__(12)('species');
 
 module.exports = function (KEY) {
@@ -533,7 +533,7 @@ module.exports = function (KEY) {
 
 /***/ }),
 
-/***/ 116:
+/***/ 117:
 /***/ (function(module, exports, __webpack_require__) {
 
 var ITERATOR = __webpack_require__(12)('iterator');
@@ -562,13 +562,13 @@ module.exports = function (exec, skipClosing) {
 
 /***/ }),
 
-/***/ 117:
+/***/ 118:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 // https://github.com/tc39/proposal-promise-finally
 
-var $export = __webpack_require__(21);
+var $export = __webpack_require__(23);
 var core = __webpack_require__(13);
 var global = __webpack_require__(11);
 var speciesConstructor = __webpack_require__(57);
@@ -590,13 +590,13 @@ $export($export.P + $export.R, 'Promise', { 'finally': function (onFinally) {
 
 /***/ }),
 
-/***/ 118:
+/***/ 119:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // https://github.com/tc39/proposal-promise-try
-var $export = __webpack_require__(21);
+var $export = __webpack_require__(23);
 var newPromiseCapability = __webpack_require__(44);
 var perform = __webpack_require__(59);
 
@@ -640,7 +640,7 @@ module.exports.f = function (C) {
 /***/ (function(module, exports, __webpack_require__) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__(37);
+var cof = __webpack_require__(38);
 var TAG = __webpack_require__(12)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
@@ -682,22 +682,22 @@ module.exports = function (O, D) {
 
 /***/ }),
 
-/***/ 570:
+/***/ 578:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(571);
+module.exports = __webpack_require__(579);
 
 
 /***/ }),
 
-/***/ 571:
+/***/ 579:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_regenerator__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_asyncToGenerator__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_asyncToGenerator___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_asyncToGenerator__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
@@ -817,9 +817,9 @@ __WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /***/ 58:
 /***/ (function(module, exports, __webpack_require__) {
 
-var ctx = __webpack_require__(35);
-var invoke = __webpack_require__(111);
-var html = __webpack_require__(103);
+var ctx = __webpack_require__(36);
+var invoke = __webpack_require__(112);
+var html = __webpack_require__(104);
 var cel = __webpack_require__(70);
 var global = __webpack_require__(11);
 var process = global.process;
@@ -860,7 +860,7 @@ if (!setTask || !clearTask) {
     delete queue[id];
   };
   // Node.js 0.8-
-  if (__webpack_require__(37)(process) == 'process') {
+  if (__webpack_require__(38)(process) == 'process') {
     defer = function (id) {
       process.nextTick(ctx(run, id, 1));
     };
@@ -938,15 +938,15 @@ module.exports = function (C, x) {
 
 /***/ }),
 
-/***/ 87:
+/***/ 88:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(88);
+module.exports = __webpack_require__(89);
 
 
 /***/ }),
 
-/***/ 88:
+/***/ 89:
 /***/ (function(module, exports, __webpack_require__) {
 
 /**
@@ -971,7 +971,7 @@ var oldRuntime = hadRuntime && g.regeneratorRuntime;
 // Force reevalutation of runtime.js.
 g.regeneratorRuntime = undefined;
 
-module.exports = __webpack_require__(89);
+module.exports = __webpack_require__(90);
 
 if (hadRuntime) {
   // Restore the original runtime.
@@ -988,7 +988,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 89:
+/***/ 90:
 /***/ (function(module, exports) {
 
 /**
@@ -1722,7 +1722,7 @@ if (hadRuntime) {
 
 /***/ }),
 
-/***/ 90:
+/***/ 91:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1730,7 +1730,7 @@ if (hadRuntime) {
 
 exports.__esModule = true;
 
-var _promise = __webpack_require__(91);
+var _promise = __webpack_require__(92);
 
 var _promise2 = _interopRequireDefault(_promise);
 
@@ -1767,26 +1767,26 @@ exports.default = function (fn) {
 
 /***/ }),
 
-/***/ 91:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(92), __esModule: true };
-
-/***/ }),
-
 /***/ 92:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(93);
+module.exports = { "default": __webpack_require__(93), __esModule: true };
+
+/***/ }),
+
+/***/ 93:
+/***/ (function(module, exports, __webpack_require__) {
+
 __webpack_require__(94);
-__webpack_require__(104);
+__webpack_require__(95);
 __webpack_require__(105);
-__webpack_require__(117);
+__webpack_require__(106);
 __webpack_require__(118);
+__webpack_require__(119);
 module.exports = __webpack_require__(13).Promise;
 
 
 /***/ })
 
-},[570]);
+},[578]);
 //# sourceMappingURL=qiniu.js.map
