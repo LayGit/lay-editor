@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { LayEditor } from '../src/index'
+import '../assets/index.less'
 
 class Test extends Component {
   state = {
