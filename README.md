@@ -29,6 +29,7 @@ npm install --save lay-editor
 import React, { Component } from 'react'
 
 import { LayEditor } from 'lay-editor'
+import 'lay-editor/dist/lay-editor.css'
 
 class Example extends Component {
   render () {
